@@ -1,0 +1,23 @@
+
+<ion-view id="loginPartial">
+    <ion-content>
+    <figure id="loginLogo">
+    <img src="img/ubet-logo-ko.png" class="col-60 col-offset-20">
+</figure>
+    <div class="row">
+        <div class="list list-inset col-80 col-offset-10" id="loginForm">
+            <label class="item item-input">
+                <input type="text" data-ng-model="user.username" placeholder="username">
+            </label>
+            <label class="item item-input">
+                <input type="password" data-ng-model="user.password" placeholder="password">
+            </label>
+            <button class="button button-block button-balanced" ng-click="welcome.login(user)">
+                Login
+            </button>
+            <button id="registerButton" class="button button-clear button-calm" data-ui-sref="register">Don't have an account yet?</button>
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

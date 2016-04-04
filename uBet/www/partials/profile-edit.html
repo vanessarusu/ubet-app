@@ -1,0 +1,100 @@
+<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="profilePartial">
+    <ion-content padding="true" class="has-tabs">
+        <form name="editProfile" data-ng-submit="" novalidate>
+            <div class="row">
+            	<div class="col col-33" class="padding-right">
+
+                    <div class="image-upload">
+                        <label for="profileImageInput">
+                            <figure id="profileImage" >
+                                <img data-ng-src="../img/{{editProfileInstance.currentUser.profile_img}}">
+                                <div class="icon ion-edit light" id="editProfilePictureIcon"></div>
+                        <!-- </label> -->
+                                <input id="profileImageInput" type="file"/>
+                            </figure>
+                        </label>
+                    </div>
+                    <button class="button-small button button-calm" data-ng-click="editProfileInstance.uploadFile()">Upload</button>
+                </div>
+            	<div class="col col-50">
+            		<!-- <h2 class="profileName padding-top">{{editProfileInstance.currentUser.fname}}</h2> -->
+                    <label class="item-input" id="editProfileLabel">
+                        <input data-ng-blur="editProfileInstance.myBlur(name)" type="text" data-ng-model="name" id="editProfileName" class="profileName padding-top" placeholder="{{editProfileInstance.currentUser.fname}}">
+                    </label>
+
+            		<p class="light">@{{editProfileInstance.currentUser.username}}</p>
+                    <p class="calm">{{editProfileInstance.currentUser.currency}}</p>
+
+            	</div>
+                <div class="col">
+                    <a  data-ui-sref="tabs.profile" data-ui-sref-opts="{reload: true}" class="button button-icon icon ion-gear-a padding-right"></a>
+                </div>
+
+            </div>
+        </form>
+ 
+            <div class="col">
+            <p class="light text-center padding">Update other details about yourself!</p>
+                <form name="updateProfileDetails">
+
+                    <!-- LAST NAME -->
+
+                    <label class="item item-input row">
+                        <span class="icon ion-person editProfileIcons col-10"></span>
+                        <input type="text" 
+                        class="col" 
+                        placeholder="last name: {{editProfileInstance.currentUser.lname}}" 
+                        data-ng-model="user.lname"
+                        >
+                    </label>
+
+                    <!-- EMAIL -->
+
+                    <label class="item item-input row">
+                        <span class="icon ion-email editProfileIcons col-10"></span>
+                        <input type="text" 
+                        class="col" 
+                        placeholder="email: {{editProfileInstance.currentUser.email}}" 
+                        data-ng-model="user.email">
+                    </label>
+
+                    <!-- CITY -->
+
+                    <label class="item item-input row">
+                        <span class="icon ion-location editProfileIcons col-10"></span>
+                        <input type="text" 
+                        class="row" 
+                        placeholder="city: {{editProfileInstance.currentUser.city}}" 
+                        data-ng-model="user.city">
+                    </label>
+
+                    <!-- COUNTRY -->
+
+                    <label class="item item-input row">
+                        <span class="icon ion-map editProfileIcons col-10"></span>
+                        <input type="text" 
+                        class="col" 
+                        placeholder="country: {{editProfileInstance.currentUser.country}}" 
+                        data-ng-model="user.country">
+                    </label>
+
+                    <!-- BIRTHDAY -->
+
+                    <label class="item item-input row">
+                        <span class="icon ion-calendar editProfileIcons col-10"></span>
+                        <input type="date" 
+                        class="col" 
+                        placeholder="{{editProfileInstance.currentUser.birthdate}}" 
+                        data-ng-model="user.birthdate">
+                    </label>
+                    <!-- <a data-ng-click="editProfileInstance.updateProfile(user)">click</a> -->
+                    <button class="button button-block button-balanced" data-ng-click="editProfileInstance.updateProfile(user)">Update Profile</button>
+                    <!-- <button  -->
+                    <!-- class="button button-block button-balanced"  -->
+                    <!-- data-ng-click="editProfileInstance.updateProfile(user)"> -->
+                    <!-- Update Profile</button> -->
+                </form>
+            </div>
+
+        </ion-content>
+      </ion-view>

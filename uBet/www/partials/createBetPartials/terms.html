@@ -1,0 +1,64 @@
+
+<div id="createBetTermsContainer">
+	<h2 class="dark">Set Bet Terms</h1>
+	<p class="dark">Set the terms of your bet below!</p>
+	<div class="list">
+	<button data-ng-click="cbInstance.getCreatorCurrency()">{{cbInstance.creatorCurrency}}</button>
+
+	<!-- BET NAME -->
+
+
+		<label class="item item-input row">
+            <span class="icon ion-person editProfileIcons col-10"></span>
+            <input type="text" placeholder="Bet Name">
+        </label>
+
+
+  	<div class="row">
+
+  	<!-- START DATE -->
+
+  		<div class="col">
+  			<ionic-datepicker 
+	  		date="cbInstance.currentStartDate" 
+	  		min="cbInstance.minDate" 
+	  		max="cbInstance.maxDate" 
+	  		callback="cbInstance.betStartDate">
+
+            	<button class="button button-calm button-small button-outline">Start Date : {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</button>
+
+        </ionic-datepicker>
+  		</div>
+
+  	<!-- END DATE -->
+
+  		<div class="col">
+  			<ionic-datepicker 
+	        date="cbInstance.currentEndDate" 
+	        min="cbInstance.minDate" 
+	        max="cbInstance.maxDate" 
+	        callback="cbInstance.betEndDate">
+
+				<button class="button button-calm button-small button-outline">End Date : {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</button>
+
+		</ionic-datepicker>
+  		</div>
+  	</div>
+
+
+	<!-- WAGER AMOUNT -->
+		<p>Wager Amount:</p>
+		<div class="item range">
+			<i class="icon ion-volume-low"></i>
+			<input type="range" name="volume" min="0" max="100" value="33">
+			<i class="icon ion-volume-high"></i>
+		</div>
+
+	<!-- BET TERMS -->
+
+		<label class="item item-input item-floating-label">
+    		<span class="input-label">Bet Terms</span>
+    		<textarea rows="5" placeholder="Bet Terms"></textarea>
+  		</label>
+	</div>
+</div>

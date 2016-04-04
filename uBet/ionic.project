@@ -1,0 +1,13 @@
+{
+  "name": "uBet",
+  "app_id": "d1c0efe9",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ],
+  "defaultBrowser": "chrome"
+}

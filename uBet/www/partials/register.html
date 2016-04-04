@@ -1,0 +1,118 @@
+
+<ion-view id="loginPartial">
+    <ion-content>
+    <figure id="loginLogo">
+    <img src="img/ubet-logo-ko.png" class="col-60 col-offset-20">
+</figure>
+    <div class="row">
+        <div class="list list-inset col-80 col-offset-10" id="loginForm">
+        <form name="registerForm"  data-ng-submit="welcome.register(registerForm.$valid)" novalidate="">
+
+         <!-- FIRST NAME -->
+            
+            <label class="item item-input">
+                <input type="text" 
+                name="fname" 
+                data-ng-model="user.fname" 
+                placeholder="first name" 
+                class="form-control" 
+                data-ng-minlength="3" 
+                data-ng-maxlength="50"
+                required>
+            </label>
+
+            <p class="calm textHint" 
+            data-ng-show="registerForm.fname.$invalid && registerForm.fname.$touched">
+                Name should be between 3 and 50 characters
+            </p>
+
+            <!-- LAST NAME -->
+            
+            <label class="item item-input">
+                <input type="text" 
+                name="lname"
+                data-ng-model="user.lname" 
+                placeholder="last name" 
+                class="form-control" 
+                data-ng-min-length="2"
+                data-ng-max-lenght='50'
+                required>
+            </label>
+
+            <p class="calm textHint" 
+            data-ng-show="registerForm.lname.$invalid && registerForm.lname.$touched">
+                Last name should be between 2 and 50 characters
+            </p>
+
+            <!-- USERNAME -->
+
+            <label class="item item-input">
+                <input type="text" 
+                name="username"
+                data-ng-model="user.username" 
+                placeholder="username" 
+                class="form-control" 
+                data-ng-minlength="3"
+                data-ng-maxlength="25"
+                data-ng-keyup="welcome.checkUsernameAvailability(user.username)"
+                required>
+            </label>
+
+            <div data-ng-messages="registerForm.username.$error" data-ng-if="registerForm.username.$touched">
+                <p class="calm textHint" data-ng-message="minlength">Your name is too short</p>
+                <p class="calm textHint" data-ng-message="maxlength">Your name is too long</p>
+                <p class="calm textHint" data-ng-message="required">Your name is required</p>
+            </div>
+            <p class="calm textHint" data-ng-show="welcome.userTaken">
+                Username is taken already :(
+            </p>
+
+            <!-- PASSWORD -->
+
+            <label class="item item-input">
+                <input type="password" 
+                name="password"
+                data-ng-model="user.password" 
+                id="password"
+                
+                placeholder="password"
+                data-ng-minlength="3"
+                data-ng-maxlength="16"
+                class="form-control" 
+                required>
+            </label>
+            <div data-ng-messages="registerForm.password.$error" data-ng-if="registerForm.password.$touched">
+                <p class="calm textHint" data-ng-message="minlength">Your password is too short</p>
+                <p class="calm textHint" data-ng-message="maxlength">Your password is too long</p>
+                <p class="calm textHint" data-ng-message="required">Your password is required</p>
+            </div>
+            
+            <label class="item item-input">
+                <input type="password" 
+                name="passwordConfirm"
+                data-check-password="password"
+                data-ng-blur="welcome.verifyPassword(user.password, user.passwordConfirm)"
+                data-ng-model="user.passwordConfirm"
+                placeholder="confirm password" 
+                class="form-control"
+                required>
+            </label>
+            
+            <!-- EMAIL -->
+
+            <label class="item item-input">
+                <input type="email" data-ng-model="user.email" placeholder="email" class="form-control" required>
+            </label>
+            <!-- <button class="button button-block button-balanced" ng-click="welcome.register(user)"> -->
+            <button class="button button-block button-balanced" type="submit" data-ng-disabled="registerForm.$invalid">
+                Signup!
+            </button>
+            <button id="registerButton" class="button button-clear button-calm" data-ui-sref="home">    Already have an account?
+            </button>
+
+            </form>
+            </div>
+        
+        </div>
+    </ion-content>
+</ion-view>

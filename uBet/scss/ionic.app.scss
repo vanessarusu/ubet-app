@@ -1,0 +1,265 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// COLOURS -----------------------------------------------------------------
+$light: #fff !default;
+// ubet Black -------------------
+$dark: #2d3538 !default;
+// ubet Green -------------------
+$balanced: #92c83e !default;
+// ubet Blue -------------------
+$calm: #2bb892 !default;
+
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+
+
+$font-family-sans-serif:           'Noto Sans', "Helvetica Neue", sans-serif !default;
+
+// $font-family-light-sans-serif:    '-apple-system', "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
+// $font-family-serif:               serif !default;
+// $font-family-monospace:           monospace !default;
+
+$font-family-base:                $font-family-sans-serif !default;
+
+
+ // REGISTRATION AND LOGIN -----------------------------------------------------
+
+ .textHint {
+ 	font-size: 12px;
+ }
+
+
+
+
+
+.activeButton {
+	color: $dark !important;
+	background-color: $balanced !important;
+	position: relative;
+	// border: 4px solid #c2e1f5;
+}
+
+// .activeButton:after, .activeButton:before {
+// 	top: 100%;
+// 	left: 50%;
+// 	content: '';
+// 	// display: block;
+// 	position: absolute;
+// 	pointer-events: none;
+// 	height: 0;
+// 	width: 0;
+// 	border: solid transparent;
+// 	// background-color: red;
+// 	// height: 20px;
+// }
+
+.activeButton:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0,0,0,0);
+	border-top-color: $balanced;
+	border-width: 8px;
+	margin-left: -8px;
+}
+
+
+.logo {
+	height: 30px;
+	margin-top:	5px;
+}
+
+#loginPartial, #profilePartial {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2d3538+0,262628+100 */
+	background: #2d3538; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #2d3538 0%, #262628 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover,  #2d3538 0%,#262628 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center,  #2d3538 0%,#262628 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d3538', endColorstr='#262628',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#loginLogo {
+	margin: 50px 0;
+}
+
+#loginForm {
+	background-color: transparent;
+	width: 80%;
+	margin: 0 auto;
+}
+
+#registerButton {
+	width: 100%;
+	text-align: center;
+}
+
+.center {
+	margin: 0 auto;
+}
+.textCenter {
+	text-align: center;
+}
+
+.fullWidth {
+	width: 100%;
+}
+.bar {
+	border: none !important;
+	// background-color: transparent !important;
+}
+
+#profileTabs {
+	width: 100%;
+	margin: 0 auto;
+}
+
+#yolo {
+	background-color: red;
+}
+.profileName {
+	color: $light;
+}
+.profileButton {
+	background-color: $dark;
+	border: 1px solid $light;
+	border-radius: 15% !important;
+	font-size: 25px;
+	margin: 0 5px;
+	text-align: center;
+	color: $light;
+}
+.profileButton:hover {
+	color: $balanced;
+}
+
+
+#profileNavigation {
+	margin: 20px 0;
+}
+
+#profileImage {
+	position: relative;
+}
+
+#profileImage img {
+	max-width: 90%;
+	margin-top: 5px;
+}
+
+#editProfileName ::-webkit-placeholder {
+	color: $light;
+	font-size: 30px;
+}
+
+#editProfileLabel {
+	padding: 0;
+}
+
+input#editProfileName {
+	font-size: 30px;
+	color: $light;
+	height: 40px;
+}
+
+#profileImageInput {
+	// width: 0px;
+	// height: 0px;
+	// opacity: 0;
+	// overflow: hidden;
+	// position: absolute;
+	// z-index: -1;
+	// color: red;
+}
+
+.image-upload input {
+	// cursor: hand;
+	display: none;
+}
+.editProfileIcons {
+	font-size: 25px;
+	margin-right: 15px;
+	color: $balanced;
+}
+
+#editProfilePictureIcon {
+	width: 25px;
+	padding: 0 0 0 5px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: $calm;
+	border: 2px solid $light;
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+}
+
+
+ // CREATE BET --------------------------------------------------------------------------------------------------
+
+
+#betPartial {
+	//set bg colour of bet page
+}
+
+#createBetNavigation {
+
+}
+
+#createBetTermsContainer h2 {
+	padding-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+// .image-upload:hover {
+// 	cursor: pointer;
+// }
+
+// @mixin contentWidth($width) {
+// 	width: $width;
+// }
+
+// @mixin radialGradientBackground($startColor, $endColor) {
+// 	background: $startColor; /* Old browsers */
+// 	background: -moz-radial-gradient(center, ellipse cover,  $startColor 0%, $endColor 100%); /* FF3.6-15 */
+// 	background: -webkit-radial-gradient(center, ellipse cover,  $startColor 0%,$endColor 100%); /* Chrome10-25,Safari5.1-6 */
+// 	background: radial-gradient(ellipse at center, $startColor  0%,$endColor 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+// 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=+"'"+$startColor+"'", endColorstr=+'"'+$endColor+'"',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+// }
+
+
+// IMPORT MUST COME LAST OR CUSTOM SASS WONT OVERRIDE----------------------------
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+
