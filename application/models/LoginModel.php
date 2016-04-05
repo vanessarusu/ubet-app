@@ -43,61 +43,82 @@ class LoginModel extends CI_Model {
 	}
 
 	// CREATE A USER ---------------------------------------------------------------------------------
+	public function registerUser() {
+		$userInfo = json_decode($this->input->post('userInfo'), true);
 
-	public function createUser($userInfo) {
-		$config = array(
-			array(
-				'field' => 'fname',
-				'label' => 'First Name',
-				'rules' => 'required|trim'
-				),
-			array(
-				'field' => 'lname',
-				'label' => 'Last Name',
-				'rules' => 'required|trim'
-				),
-			array(
-				'field' => 'email',
-				'label' => 'Email Address',
-				'rules' => 'required|trim|valid_email|is_unique[tbl_users.email]'
-				),
-			array(
-				'field' => 'username',
-				'label' => 'Username',
-				'rules' => 'required|trim|is_unique[tbl_users.username]'
-				),
-			array(
-				'field' => 'password',
-				'label' => 'Password',
-				'rules' => 'required|trim|min_length[8]| max_length[25]'
-				),
-			array(
-				'field' => 'passwordConfirm',
-				'label' => 'Confirm Password',
-				'rules' => 'required|trim|matches[password]'
-				),
-			);
-		$this->form_validation->set_rules($config);
 
-		if($this->form_validation->run() === FALSE) {
-			return false;
-		}
+		$newUserData = array(
+			'fname' => $userInfo['fname'],
+			'lname' => $userInfo['lname'],
+			'email' => $userInfo['email'],
+			'username' => $userInfo['username'],
+			'password' => $userInfo['password'],
+			'currency' => 50
+		);
 
-		else {
-			$username = $this->input->post('fname');
-			$newUserData = array(
-					'fname' =>$this->input->post('fname'),
-					'lname' =>$this->input->post('lname'),
-					'email' =>$this->input->post('email'),
-					'username' =>$username,
-					'password' =>$this->input->post('password'),
-					'profile_image' =>$this->input->post('profile_img'),
-					'currency' =>$this->input->post('currency')
-				);
-			$insert = $this->db->insert('tbl_users', $newUserData);
-			return $insert;
-		}
+		$insert = $this->db->insert('tbl_users', $newUserData);
+
+		$id = $this->db->insert_id();
+		$q = $this->db->get_where('tbl_users', array('user_id' => $id));
+		return $q->row_array();
+
 	}
+
+
+	// public function createUser($userInfo) {
+	// 	$config = array(
+	// 		array(
+	// 			'field' => 'fname',
+	// 			'label' => 'First Name',
+	// 			'rules' => 'required|trim'
+	// 			),
+	// 		array(
+	// 			'field' => 'lname',
+	// 			'label' => 'Last Name',
+	// 			'rules' => 'required|trim'
+	// 			),
+	// 		array(
+	// 			'field' => 'email',
+	// 			'label' => 'Email Address',
+	// 			'rules' => 'required|trim|valid_email|is_unique[tbl_users.email]'
+	// 			),
+	// 		array(
+	// 			'field' => 'username',
+	// 			'label' => 'Username',
+	// 			'rules' => 'required|trim|is_unique[tbl_users.username]'
+	// 			),
+	// 		array(
+	// 			'field' => 'password',
+	// 			'label' => 'Password',
+	// 			'rules' => 'required|trim|min_length[8]| max_length[25]'
+	// 			),
+	// 		array(
+	// 			'field' => 'passwordConfirm',
+	// 			'label' => 'Confirm Password',
+	// 			'rules' => 'required|trim|matches[password]'
+	// 			),
+	// 		);
+	// 	$this->form_validation->set_rules($config);
+
+	// 	if($this->form_validation->run() === FALSE) {
+	// 		return false;
+	// 	}
+
+	// 	else {
+	// 		$username = $this->input->post('fname');
+	// 		$newUserData = array(
+	// 				'fname' =>$this->input->post('fname'),
+	// 				'lname' =>$this->input->post('lname'),
+	// 				'email' =>$this->input->post('email'),
+	// 				'username' =>$username,
+	// 				'password' =>$this->input->post('password'),
+	// 				'profile_image' =>$this->input->post('profile_img'),
+	// 				'currency' =>$this->input->post('currency')
+	// 			);
+	// 		$insert = $this->db->insert('tbl_users', $newUserData);
+	// 		return $insert;
+	// 	}
+	// }
 
 	public function checkUsername($username) {
 		$username = $username;

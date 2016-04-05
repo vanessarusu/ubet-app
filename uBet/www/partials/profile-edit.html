@@ -1,6 +1,14 @@
 <ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="profilePartial">
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
     <ion-content padding="true" class="has-tabs">
         <form name="editProfile" data-ng-submit="" novalidate>
+        <div class="row">
+        </div>
             <div class="row">
             	<div class="col col-33" class="padding-right">
 
@@ -19,11 +27,10 @@
             	<div class="col col-50">
             		<!-- <h2 class="profileName padding-top">{{editProfileInstance.currentUser.fname}}</h2> -->
                     <label class="item-input" id="editProfileLabel">
-                        <input data-ng-blur="editProfileInstance.myBlur(name)" type="text" data-ng-model="name" id="editProfileName" class="profileName padding-top" placeholder="{{editProfileInstance.currentUser.fname}}">
+                        <input data-ng-blur="editProfileInstance.myBlur(name)" type="text" data-ng-model="name" id="editProfileName" class="profileName padding-top" placeholder="{{editProfileInstance.currentUser.fname}}" data-ng-min-length="3" data-ng-max-length="16">
                     </label>
 
             		<p class="light">@{{editProfileInstance.currentUser.username}}</p>
-                    <p class="calm">{{editProfileInstance.currentUser.currency}}</p>
 
             	</div>
                 <div class="col">
@@ -80,13 +87,25 @@
 
                     <!-- BIRTHDAY -->
 
-                    <label class="item item-input row">
+                    <div class="col">
+                        <ionic-datepicker 
+                        date="pc.birthdate" 
+                        max="pc.maxDate" 
+                        callback="pc.setBirthdate"
+                        data-ng-model="pc.birthdate">
+
+                            <button class="button button-calm button-small button-outline">{{pc.birthdate | date:'MMMM.dd.yy' }}</button>
+
+                    </ionic-datepicker>
+                    </div>
+
+                    <!-- <label class="item item-input row">
                         <span class="icon ion-calendar editProfileIcons col-10"></span>
                         <input type="date" 
                         class="col" 
                         placeholder="{{editProfileInstance.currentUser.birthdate}}" 
                         data-ng-model="user.birthdate">
-                    </label>
+                    </label> -->
                     <!-- <a data-ng-click="editProfileInstance.updateProfile(user)">click</a> -->
                     <button class="button button-block button-balanced" data-ng-click="editProfileInstance.updateProfile(user)">Update Profile</button>
                     <!-- <button  -->

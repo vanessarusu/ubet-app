@@ -19,6 +19,9 @@ $dark:                            #444 !default;
 .textHint {
   font-size: 12px; }
 
+figure img {
+  max-width: 100%; }
+
 .activeButton {
   color: #2d3538 !important;
   background-color: #92c83e !important;
@@ -87,7 +90,25 @@ $dark:                            #444 !default;
   background-color: red; }
 
 .profileName {
-  color: #fff; }
+  color: #fff;
+  padding: 0;
+  margin: 0; }
+
+.username {
+  margin: 0;
+  padding: 0; }
+
+.currencyCount {
+  font-size: 16px;
+  font-weight: bold; }
+
+#profileCurrencyIcon {
+  padding: 5px 0 0 0;
+  max-width: 22px; }
+
+#currencyDisplay {
+  padding: 0;
+  margin-top: 5px; }
 
 .profileButton {
   background-color: #2d3538;
@@ -102,7 +123,7 @@ $dark:                            #444 !default;
   color: #92c83e; }
 
 #profileNavigation {
-  margin: 20px 0; }
+  margin: 18px 0; }
 
 #profileImage {
   position: relative; }

@@ -18,6 +18,12 @@ class UserModel extends CI_Model {
 		}
 
 	}
+
+	public function getAllUsers() {
+		$q = $this->db->get('tbl_users');
+
+		return $q->result_array();
+	}
 	
 	public function uploadImage($data) {
 		echo 'called the file uploading function';

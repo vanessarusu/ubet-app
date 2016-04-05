@@ -3,12 +3,13 @@
 app.controller('loginController', ['$scope', '$rootScope', '$state', 'authFactory', function($scope, $rootScope, $state, authFactory){
 	var welcome = this;
 	welcome.userTaken = false;
+	welcome.notice = false;
 	welcome.login = function(user) {
 		authFactory.login(user)
 		.then(function(loggedInUser) {
 			// console.log(loggedInUser);
 			if(loggedInUser.user_id) {
-				alert('there is a user');
+				// alert('there is a user');
 				// console.log(data.data);
 				localStorage.setItem("user", JSON.stringify(loggedInUser));
 				console.log(localStorage.getItem('user'));
@@ -27,13 +28,19 @@ app.controller('loginController', ['$scope', '$rootScope', '$state', 'authFactor
 		// alert('login');
 	}
 
-	welcome.register = function(isValid) {
-		if(isValid) {
-			alert('our form is amazing');
+	welcome.register = function(user) {
+		if(user) {
+			// alert('our form is amazing');
+			console.log(user);
+			authFactory.createUser(user)
+			.then(function(data) {
+				console.log(data);
+				$state.go('home');
+			})
 		}
-		// alert('register!');
-		// var newUser = authFactory.createUser(userInfo);
-		// $state.go('tabs.feed');
+		else {
+			welcome.notice = 'something went wrong, please try again!';
+		}
 	}
 
 	welcome.checkUsernameAvailability = function(username) {
@@ -67,6 +74,13 @@ app.factory('authFactory', ['$rootScope','$http', '$httpParamSerializer', functi
 	return {
 		createUser : function(userInfo) {
 			console.log(userInfo);
+			var request = $http.post($rootScope.basePath+'/Login/register', $httpParamSerializer({userInfo: userInfo}), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
+			.then(function(response) {
+				console.log(response.data);
+				return response.data;
+			});
+			return request;
+				
 				// var request = $http.post($rootScope.basePath+'/Login/create', userInfo)
 				// .success(function(data) {
 				// })
@@ -100,7 +114,7 @@ app.factory('authFactory', ['$rootScope','$http', '$httpParamSerializer', functi
 					birthdate: data.data.birthdate,
 					city: data.data.city,
 					country: data.data.country,
-					currency: data.data.curr
+					currency: data.data.currency
 
 				};
 				return loggedInUser;

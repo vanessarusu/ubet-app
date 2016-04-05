@@ -3,14 +3,13 @@
 	<h2 class="dark">Set Bet Terms</h1>
 	<p class="dark">Set the terms of your bet below!</p>
 	<div class="list">
-	<button data-ng-click="cbInstance.getCreatorCurrency()">{{cbInstance.creatorCurrency}}</button>
 
 	<!-- BET NAME -->
 
 
 		<label class="item item-input row">
             <span class="icon ion-person editProfileIcons col-10"></span>
-            <input type="text" placeholder="Bet Name">
+            <input type="text" placeholder="Bet Name" data-ng-model="cbInstance.betName">
         </label>
 
 
@@ -23,7 +22,8 @@
 	  		date="cbInstance.currentStartDate" 
 	  		min="cbInstance.minDate" 
 	  		max="cbInstance.maxDate" 
-	  		callback="cbInstance.betStartDate">
+	  		callback="cbInstance.betStartDate"
+	  		data-ng-model="cbInstance.currentStartDate">
 
             	<button class="button button-calm button-small button-outline">Start Date : {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</button>
 
@@ -35,9 +35,10 @@
   		<div class="col">
   			<ionic-datepicker 
 	        date="cbInstance.currentEndDate" 
-	        min="cbInstance.minDate" 
+	        min="cbInstance.currentStartDate" 
 	        max="cbInstance.maxDate" 
-	        callback="cbInstance.betEndDate">
+	        callback="cbInstance.betEndDate"
+	        data-ng-model="cbInstance.currentEndDate">
 
 				<button class="button button-calm button-small button-outline">End Date : {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</button>
 
@@ -47,10 +48,10 @@
 
 
 	<!-- WAGER AMOUNT -->
-		<p>Wager Amount:</p>
+		<p>Wager Amount: {{cbInstance.wagerAmount}}</p>
 		<div class="item range">
 			<i class="icon ion-volume-low"></i>
-			<input type="range" name="volume" min="0" max="100" value="33">
+			<input type="range" name="volume" min="5" max="{{cbInstance.creatorCurrency}}" value="cbInstance.wagerAmount" data-ng-model="cbInstance.wagerAmount">
 			<i class="icon ion-volume-high"></i>
 		</div>
 
@@ -58,7 +59,9 @@
 
 		<label class="item item-input item-floating-label">
     		<span class="input-label">Bet Terms</span>
-    		<textarea rows="5" placeholder="Bet Terms"></textarea>
+    		<textarea rows="5" placeholder="Bet Terms"
+    		data-ng-model="cbInstance.betTerms"
+    		data-ng-blur="cbInstance.saveData()"></textarea>
   		</label>
 	</div>
 </div>

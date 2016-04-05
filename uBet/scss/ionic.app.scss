@@ -46,7 +46,9 @@ $font-family-base:                $font-family-sans-serif !default;
  }
 
 
-
+figure img {
+	max-width: 100%;
+}
 
 
 .activeButton {
@@ -140,6 +142,27 @@ $font-family-base:                $font-family-sans-serif !default;
 }
 .profileName {
 	color: $light;
+	padding: 0;
+	margin: 0;
+}
+
+.username {
+	margin: 0;
+	padding: 0;
+}
+
+.currencyCount {
+	font-size: 16px;
+	font-weight: bold;
+}
+#profileCurrencyIcon {
+	padding: 5px 0 0 0;
+	max-width: 22px;
+}
+
+#currencyDisplay {
+	padding: 0;
+	margin-top: 5px;
 }
 .profileButton {
 	background-color: $dark;
@@ -156,7 +179,7 @@ $font-family-base:                $font-family-sans-serif !default;
 
 
 #profileNavigation {
-	margin: 20px 0;
+	margin: 18px 0;
 }
 
 #profileImage {

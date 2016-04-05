@@ -6,7 +6,7 @@
 </figure>
     <div class="row">
         <div class="list list-inset col-80 col-offset-10" id="loginForm">
-        <form name="registerForm"  data-ng-submit="welcome.register(registerForm.$valid)" novalidate="">
+        <form name="registerForm"  data-ng-submit="welcome.register(user)" novalidate="">
 
          <!-- FIRST NAME -->
             
@@ -90,13 +90,16 @@
             <label class="item item-input">
                 <input type="password" 
                 name="passwordConfirm"
-                data-check-password="password"
-                data-ng-blur="welcome.verifyPassword(user.password, user.passwordConfirm)"
+                data-match-password="password"
                 data-ng-model="user.passwordConfirm"
                 placeholder="confirm password" 
                 class="form-control"
                 required>
             </label>
+            <div data-ng-messages="registerForm.passwordConfirm.$error" data-ng-if="registerForm.passwordConfirm.$touched">
+                <p class="calm textHint" data-ng-message="required">This field is required</p>
+                <p class="calm textHint" data-ng-message="passwordMatch">Passwords must match</p>
+            </div>
             
             <!-- EMAIL -->
 
@@ -107,6 +110,7 @@
             <button class="button button-block button-balanced" type="submit" data-ng-disabled="registerForm.$invalid">
                 Signup!
             </button>
+            <p class="balanced textHint text-center" data-ng-if="welcome.notice">{{welcome.notice}}ddd</p>
             <button id="registerButton" class="button button-clear button-calm" data-ui-sref="home">    Already have an account?
             </button>
 

@@ -31,6 +31,16 @@ class User extends CI_Controller {
 
 	}
 
+	public function all() {
+		if($allUsers = $this->UserModel->getAllUsers()) {
+			echo json_encode($allUsers);
+		}
+		else {
+			echo 'failed to get all users';
+		}
+	}
+
+
 	public function do_upload() {
 		// if($this->input->is_ajax_request()) {
 		// 	echo 'it is ajax';

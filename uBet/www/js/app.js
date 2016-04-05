@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker'])
+var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker', 'ngPassword'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -28,21 +28,34 @@ var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker'])
 app.run(['$rootScope', '$state', function($rootScope, $state) {
   // localStorage.removeItem('user');
     $rootScope.basePath = 'http://localhost/ubet-app/index.php';
-    // $rootScope.user = false;
+    $rootScope.user = false;
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function(e, toState, fromState, toParams, fromParams, options) {
         console.log(toState.name);
+        console.log(localStorage.getItem('user'));
+
+        // e.preventDefault();
+
+        //if we are NOT going to the home state or the register state (so if we are going to any other state)
+        // check to see if there is a user stored in local storage (this gets set on login function)
+        // if there is no user stored, go to the home state
+
+        if(toState.name!=='home' && toState.name!=='register') {
+
+          if(!localStorage.getItem('user')) {
+            e.preventDefault();
+            $state.go('home');
+          }
+        }
+
+        // if we are trying to go to the home state or the register state
+        // check to see if there is a user stored in local storage
+        // if there is a user, go to the main page you should see when logged in
 
         if(toState.name =='home' || toState.name =='register') {
             if(localStorage.getItem('user')) {
                 e.preventDefault();
                 $state.go('tabs.feed');
-            }
-            return;
-
-            if(!localStorage.getItem('user')) {
-                e.preventDefault();
-                $state.go('login');
             }
         }
     });
@@ -227,8 +240,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
       url: '/friends',
       views: {
         'friends-tab': {
-          templateUrl: 'partials/home.html',
-          // controller: 'HomeTabCtrl'
+          templateUrl: 'partials/friends.html',
+          controller: 'friendsController',
+          controllerAs: 'friendsInstance'
+        }
+      }
+    })
+
+    .state('tabs.find-friends', {
+      url: '/friends/find-friends',
+      views: {
+        'friends-tab': {
+          templateUrl: 'partials/find-friends.html',
+          controller: 'friendsController',
+          controllerAs: 'findFriendsInstance'
         }
       }
     })
@@ -254,6 +279,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
           controller: 'createBetController',
           controllerAs : 'cbInstance'
           // controller: 'HomeTabCtrl'
+          // OLA
         }
       }
     })

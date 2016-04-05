@@ -32,6 +32,15 @@ class Login extends CI_Controller {
 		session_write_close();
 	}
 
+	public function register() {
+		if($newUser = $this->LoginModel->registerUser()) {
+			echo json_encode($newUser);
+		}
+		else {
+			echo 'didnt register user';
+		}
+	}
+
 
 	
 

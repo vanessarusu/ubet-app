@@ -1,0 +1,40 @@
+<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="profilePartial">
+
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content padding="true" class="has-tabs">
+        <!-- <search-bar ng-model="search"></search-bar> -->
+        
+        <div class="col col-20 col-offset-80">
+            <p  data-ui-sref="tabs.friends" class="button button-icon icon calm ion-person-add padding-right"></p>
+        </div>
+        <div class="row"><h2>Find Friends</h2></div>
+
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Find Users" data-ng-model="findFriendsInstance.searchUsers">
+            </label>
+        </div>
+        <div>
+            <ul>
+                <li class="light row" data-ng-repeat="person in findFriendsInstance.members | orderBy: findFriendsInstance.sortType | filter: findFriendsInstance.searchUsers">
+                    <div class="col">
+                        {{person.fname}} {{person.lname}}
+                    </div>
+                    <div class="col">
+                        {{person.username}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div ui-view></div>
+
+    </ion-content>
+
+</ion-view>

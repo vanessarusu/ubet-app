@@ -6,11 +6,15 @@ app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFa
 
 	$scope.$on('$ionicView.beforeEnter', function() {
 	    pc.currentUser = JSON.parse(localStorage.getItem('user'));
+	    console.log(pc.currentUser);
 
 		if(pc.currentUser.profile_img == null) {
 			pc.currentUser.profile_img = 'default-profile.png';
 		}
 	});
+
+	// pc.birthdate = currentUser.birthdate;
+	pc.maxDate = new Date();
 	// console.log(currentUser.data);
 	// pc.currentUser = currentUser;
 	// console.log(pc.currentUser.fname + ' when loading');
@@ -92,7 +96,7 @@ app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFa
 						birthdate: data.data.birthdate,
 						city: data.data.city,
 						country: data.data.country,
-						currency: data.data.curr
+						currency: data.data.currency
 
 					};
 					// console.log(updatedUser);

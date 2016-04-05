@@ -1,18 +1,35 @@
-<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="betPartial">
+<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="betPartial" hide-back-button="false">
+
+
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+
+
+
+
+
+
+
+
+
         <ion-content padding="true" class="has-tabs">
         <div class="row">
 
 
         	<div class="col col-33" class="padding-right">
         	</div>
-        	<div class="col col-50">
-        		<h2 class="profileName padding-top">{{profileInstance.currentUser.fname}}</h2>
-        		<p class="light">@{{profileInstance.currentUser.username}}</p>
-            <p class="calm">{{profileInstance.currentUser.currency}}</p>
-        		<button class="button button-balanced button-small">Bet {{profileInstance.currentUser.fname}}</button>
+        	<!-- <div class="col col-50"> -->
+        		<!-- <h2 class="profileName padding-top">{{profileInstance.currentUser.fname}}</h2> -->
+        		<!-- <p class="light">@{{profileInstance.currentUser.username}}</p> -->
+            <!-- <p class="calm">{{profileInstance.currentUser.currency}}</p> -->
+        		<!-- <button class="button button-balanced button-small">Bet {{profileInstance.currentUser.fname}}</button> -->
             <!-- <button class="friendStatus">Add or remove</button> -->
 
-        	</div>
+        	<!-- </div> -->
         	<!-- <div class="col">
         		<p  data-ui-sref="tabs.edit-profile" class="button button-icon icon ion-gear-a padding-right"></p>
         	</div> -->
