@@ -24,6 +24,32 @@ class UserModel extends CI_Model {
 
 		return $q->result_array();
 	}
+
+	public function getAllFriends($id) {
+		$this->db->where(array('from_user' => $id, 'status' => 3));
+		$this->db->or_where(array('to_user' => $id, 'status' => 3));
+		$q = $this->db->get('tbl_friends');
+		$q = $q->result_array();
+		
+		$friendsIDList = array();
+		$count = 0;
+
+		foreach($q as $key => $value) {
+			if($value['to_user'] == $id) {
+				$friendsIDList[$count++]=($value['from_user']);
+			}
+			else if($value['from_user'] == $id) {
+				$friendsIDList[$count++]=($value['to_user']);
+			}
+			else {
+				return false;
+			}
+		}
+
+		$this->db->where_in('user_id', $friendsIDList);
+		$r = $this->db->get('tbl_users');
+		return $r->result_array();
+	}
 	
 	public function uploadImage($data) {
 		echo 'called the file uploading function';

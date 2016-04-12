@@ -26,7 +26,7 @@ var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker', 'ng
 });
 
 app.run(['$rootScope', '$state', function($rootScope, $state) {
-  // localStorage.removeItem('user');
+  localStorage.removeItem('user');
     $rootScope.basePath = 'http://localhost/ubet-app/index.php';
     $rootScope.user = false;
     $rootScope.$state = $state;
@@ -245,6 +245,19 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
           controllerAs: 'friendsInstance'
         }
       }
+    })
+
+    // changed this
+    .state('tabs.user', {
+      url: '/friends/:userID',
+      views: {
+        'friends-tab': {
+          templateUrl: 'partials/public-profile.html',
+          controller: 'friendsController',
+          controllerAs: 'friendProfileInstance'
+        }
+      }
+      // templateUrl: 'partials/profilePartials/activity.html'
     })
 
     .state('tabs.find-friends', {

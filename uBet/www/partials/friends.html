@@ -19,6 +19,20 @@
                 <input type="text" placeholder="Search Friends">
             </label>
         </div>
+        <div>
+            <ul>
+                <li class="light row" data-ng-repeat="friend in friendsInstance.friends">
+                    <a data-ui-sref="tabs.user({userID: friend.user_id})">
+                        <div class="col">
+                            {{friend.fname}} {{friend.lname}}
+                        </div>
+                        <div class="col">
+                            {{friend.username}}
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         <div class="row">
             <div class="col col-33" class="padding-right">

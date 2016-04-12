@@ -40,6 +40,15 @@ class User extends CI_Controller {
 		}
 	}
 
+	public function friends($id) {
+		if($friends = $this->UserModel->getAllFriends($id)) {
+			echo json_encode($friends);
+		}
+		else {
+			echo 'failed to get friends';
+		}
+	}
+
 
 	public function do_upload() {
 		// if($this->input->is_ajax_request()) {

@@ -8,6 +8,7 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 	fi.sortReverse = false;
 	fi.searchUsers = '';
 	fi.members = [];
+	fi.friends = [];
 
 	friendsFactory.getUsers()
 	.then(function(data) {
@@ -16,40 +17,33 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 			var userObj = {
 				fname: data[i].fname,
 				lname: data[i].lname,
-				username: data[i].username
+				username: data[i].username,
+				user_id: data[i].user_id
 			}
 			fi.members[i] = userObj;
 			// console.log(fi.members2);
 		}
 	});
 
+	// console.log(JSON.parse(localStorage.getItem('user')).user_id);
 
-	fi.getAllUsers = function() {
-		console.log(fi.members);
+	// get all friends that have been accepted
+	friendsFactory.getFriends()
+	.then(function(data) {
+		// console.log(data);
+		fi.friends = data;
+		// for(var i =0; i < data.length; i++) {
+		// 	// console.log(data[i]);
+		// 	fi.friends.push(data[i]);
+		// }
+		// console.log('the friends array now is ');
+		// console.log(fi.friends);
+	});
+
+	fi.getProfile = function(id) {
+		fi.profile = friends[id];
+		return fi.profile;
 	}
-
-	fi.members2 = [
-		{
-			fname: 'Bob',
-			lname: 'Smith',
-			username: 'bobSmith',
-		},
-		{
-			fname: 'Jane',
-			lname: 'Zmith',
-			username: 'janeSmith',
-		},
-		{
-			fname: 'Vanessa',
-			lname: 'Rusu',
-			username: 'VanessaRusu',
-		},
-		{
-			fname: 'Mike',
-			lname: 'Hayes',
-			username: 'mikehayes',
-		}
-	];
 
 	// $scope.$on('$ionicView.beforeEnter', function() {
 	//  //    pc.currentUser = JSON.parse(localStorage.getItem('user'));
@@ -66,6 +60,17 @@ app.factory('friendsFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 		getUsers: function() {
 			var request = $http.get($rootScope.basePath+'/User/all')
 			.then(function(response) {
+				return response.data;
+			});
+			return request;
+		},
+
+		getFriends: function() {
+			var userID = JSON.parse(localStorage.getItem('user')).user_id;
+			console.log(userID + ' is the user id in get friends');
+			var request = $http.get($rootScope.basePath+'/User/friends/'+userID)
+			.then(function(response) {
+				// console.log(response);
 				return response.data;
 			});
 			return request;

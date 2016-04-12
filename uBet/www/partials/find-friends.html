@@ -23,12 +23,14 @@
         <div>
             <ul>
                 <li class="light row" data-ng-repeat="person in findFriendsInstance.members | orderBy: findFriendsInstance.sortType | filter: findFriendsInstance.searchUsers">
-                    <div class="col">
-                        {{person.fname}} {{person.lname}}
-                    </div>
-                    <div class="col">
-                        {{person.username}}
-                    </div>
+                    <a data-ui-sref="tabs.user({userID: person.user_id})">
+                        <div class="col">
+                            {{person.fname}} {{person.lname}}
+                        </div>
+                        <div class="col">
+                            {{person.username}}
+                        </div>
+                    </a>
                 </li>
             </ul>
         </div>
