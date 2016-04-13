@@ -1,4 +1,36 @@
 
-<div id="profileActivityContainer">
-<h1>MOD</h1>
+<div id="createBetTermsContainer">
+	<h2 class="dark">Choose Moderator</h2>
+ 	
+   	<ul>
+    	<div class="row">
+    		<li class="col" data-ng-repeat="comp in cbInstance.moderators">
+    			<!-- todo, need to click these to remove them -->
+    			<!-- todo, need to add image -->
+    			<a data-ng-click="cbInstance.removeModerator(comp)">
+					<div class="padding emptyMember">{{comp.fname}}</div>
+				</a>
+    		</li>
+    	</div>
+	</ul>
+
+
+	<div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Find Friend" data-ng-model="cbInstance.searchModeratedUsers">
+            </label>
+        </div>
+        <div>
+            <ul>
+                <li class="light row" data-ng-repeat="friend in cbInstance.friends | filter: cbInstance.searchModeratedUsers">
+                    <a data-ng-click="cbInstance.addModerator(friend)">
+                        <!-- <div class="col"> -->
+                            {{friend.fname}} {{friend.lname}}
+                        <!-- </div> -->
+                    </a>
+                </li>
+            </ul>
+        </div>
+
 </div>

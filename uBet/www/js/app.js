@@ -26,7 +26,7 @@ var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker', 'ng
 });
 
 app.run(['$rootScope', '$state', function($rootScope, $state) {
-  localStorage.removeItem('user');
+  // localStorage.removeItem('user');
     $rootScope.basePath = 'http://localhost/ubet-app/index.php';
     $rootScope.user = false;
     $rootScope.$state = $state;
@@ -315,6 +315,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
     .state('tabs.create.image', {
         url:'/create/image',
         templateUrl:'partials/createBetPartials/image.html'
+    })
+    .state('tabs.create.submit', {
+        url:'/create/submit',
+        templateUrl:'partials/createBetPartials/submit.html'
     });
+
 }]);
 

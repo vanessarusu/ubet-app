@@ -1,6 +1,6 @@
 // angular.module('uBet', ['ionic'])
 
-app.controller('createBetController', ['$scope', '$rootScope', '$state', 'createBetFactory', function($scope, $rootScope, $state, createBetFactory){
+app.controller('createBetController', ['$scope', '$rootScope', '$state', 'createBetFactory', 'friendsFactory', function($scope, $rootScope, $state, createBetFactory, friendsFactory){
 	var cb = this;
 
 
@@ -17,7 +17,12 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 	cb.wagerAmount = 5;
 	cb.betTerms;
 	cb.betName;
+	cb.friends = [];
+	cb.searchUsers = '';
+	cb.searchModeratedUsers = '';
 
+	cb.moderators = [];
+	cb.competitors = [];
 
 
 	cb.betStartDate = function(val) {
@@ -48,6 +53,87 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 		}
 	};
 
+	cb.removeCompetitor = function(f) {
+		console.log("removing " + f);
+
+		var id = f.user_id;
+
+		// remove friend from competitor list
+		var indx = cb.competitors.indexOf(f);
+		console.log("index of friend " + indx);
+		cb.competitors.splice(indx, 1);
+
+		// todo keep order better (this just pushes it to the end, doesn't reorder, probably need to add orderBy in ng-repeat)
+		//add friend back to friends list
+		cb.friends.push(f);
+
+	}
+
+	cb.addCompetitor = function(f) {
+
+		var id = f.user_id;
+		// add friend as competitor
+		cb.competitors.push(f);
+
+		console.log('the id is '+ id);
+		// remove clicked on friend from friends list
+		var indx = cb.friends.indexOf(f);
+		cb.friends.splice(indx, 1);
+	}
+
+
+	cb.removeModerator = function(m) {
+		console.log("removing " + m);
+
+		var id = m.user_id;
+
+		// remove friend from competitor list
+		var indx = cb.moderators.indexOf(m);
+		cb.moderators.splice(indx, 1);
+
+		// todo keep order better (this just pushes it to the end, doesn't reorder, probably need to add orderBy in ng-repeat)
+		//add friend back to friends list
+		cb.friends.push(m);
+
+	}
+
+	cb.addModerator = function(m) {
+
+		var id = m.user_id;
+		// add friend as competitor
+		cb.moderators.push(m);
+
+		console.log('the id is '+ id);
+		// remove clicked on friend from friends list
+		var indx = cb.friends.indexOf(m);
+		cb.friends.splice(indx, 1);
+	}
+
+
+	cb.submitBet = function() {
+
+		console.log("called submit bet");
+
+		var bet = {
+			'bet_name' : cb.betName,
+			'start_date' : cb.currentStartDate,
+			'end_date' : cb.currentEndDate,
+			'wager_amount' : cb.wagerAmount,
+			'bet_terms' : cb.betTerms,
+			'creator_user_id' : cb.creator.user_id,
+			'bet_particpants' : cb.competitors,
+			'bet_moderators' : cb.moderators
+
+		}
+
+		createBetFactory.createBet(bet).then(function(data) {
+			console.log(data);
+		});
+
+		// Build the object to send to the database
+		// Make the database call
+		// Go check its in the db
+	}
 
 	createBetFactory.getUserInfo(cb.creator)
 	.then(function(data) {
@@ -67,6 +153,14 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 		console.log('end date is '+ cb.currentEndDate);
 	}
 
+	friendsFactory.getFriends()
+	.then(function(data) {
+		cb.friends = data;
+		console.log(cb.friends);
+		console.log('is friends ^^');
+
+	});
+
 
 }]);
 
@@ -82,7 +176,16 @@ app.factory('createBetFactory', ['$rootScope', '$http', '$httpParamSerializer', 
 				return response.data;
 			});
 			return request;
-		}
+		},
 
+		createBet : function(betInfo) {
+			console.log(betInfo);
+			var request = $http.post($rootScope.basePath+'/Bet/create', $httpParamSerializer({bet: betInfo}), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
+			.then(function(response) {
+				console.log(response.data);
+				return response.data;
+			});
+			return request;
+		}
 	}
 }]);

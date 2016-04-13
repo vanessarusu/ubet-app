@@ -20,6 +20,15 @@ class Bet extends CI_Controller {
 		// $this->load->view('welcome_message');
 	}
 
+	public function create() {
+		if($newBet = $this->BetModel->createBet()) {
+			echo json_encode($newBet);
+		}
+		else {
+			echo 'failed to create bet';
+		}
+	}
+
 	
 
 	public function update() {

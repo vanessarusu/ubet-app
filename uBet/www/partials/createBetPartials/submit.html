@@ -1,0 +1,60 @@
+   
+	<label class="item item-input row">
+        <span class="icon ion-person editProfileIcons col-10"></span>
+        <input type="text" placeholder="Bet Name" data-ng-model="cbInstance.betName">
+    </label>
+	
+   	<h3> Moderators </h3>
+   	<ul>
+    	<div class="row">
+    		<li class="col" data-ng-repeat="comp in cbInstance.moderators">
+    			<!-- todo, need to click these to remove them -->
+    			<!-- todo, need to add image -->
+				<div class="padding emptyMember">{{comp.fname}}</div>
+    		</li>
+    	</div>
+	</ul>
+
+	<h3> Competitors </h3>
+   	<ul>
+    	<div class="row">
+    		<li class="col" data-ng-repeat="comp in cbInstance.competitors">
+    			<!-- todo, need to click these to remove them -->
+    			<!-- todo, need to add image -->
+				<div class="padding emptyMember">{{comp.fname}}</div>
+    		</li>
+    	</div>
+	</ul>
+
+
+  	<div class="row">
+
+  	<!-- START DATE -->
+
+  		<div class="col">
+        	<p>Start Date : {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</p>
+  		</div>
+
+  	<!-- END DATE -->
+
+  		<div class="col">
+				<p>End Date : {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</p>
+  		</div>
+  	</div>
+
+
+	<!-- WAGER AMOUNT -->
+		<p>Wager Amount: {{cbInstance.wagerAmount}}</p>
+
+	<!-- BET TERMS -->
+
+		<label class="item item-input item-floating-label">
+    		<span class="input-label">Bet Terms</span>
+    		<p> {{cbInstance.betTerms}} </p>
+  		</label>
+	</div>
+
+
+	<button data-ng-click="cbInstance.submitBet()">
+		Submit
+	</button>
