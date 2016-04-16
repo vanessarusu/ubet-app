@@ -1,44 +1,152 @@
 // angular.module('uBet', ['ionic'])
 
-app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFactory', 'fileUpload', function($rootScope, $scope, $state, friendsFactory, fileUpload){
+app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFactory', 'fileUpload', 'viewMember', function($rootScope, $scope, $state, friendsFactory, fileUpload, viewMember){
 	var fi = this;
 	console.log('instance');
+	fi.viewMember = viewMember;
+	console.log(fi.viewMember);
+	console.log('^^^ is view Mmeber');
 
 	fi.sortType = 'lname';
 	fi.sortReverse = false;
 	fi.searchUsers = '';
 	fi.members = [];
 	fi.friends = [];
+	fi.friendsIDList = [];
+	fi.currentUser = JSON.parse(localStorage.getItem('user'));
+	fi.currentUserID = fi.currentUser.user_id;
+	fi.doneCheck = false;
 
-	friendsFactory.getUsers()
-	.then(function(data) {
-		// console.log(data);
-		for(var i = 0; i < data.length; i++) {
-			var userObj = {
-				fname: data[i].fname,
-				lname: data[i].lname,
-				username: data[i].username,
-				user_id: data[i].user_id
-			}
-			fi.members[i] = userObj;
-			// console.log(fi.members2);
-		}
-	});
+	if(fi.viewMember === null) {
+		fi.viewingUserID = fi.currentUserID;
+	}
+	else {
+		fi.viewingUserID = viewMember.user_id; 
+	}
+	console.log(fi.viewingUserID+' is the viewing user id');
+
+
+
+
 
 	// console.log(JSON.parse(localStorage.getItem('user')).user_id);
 
 	// get all friends that have been accepted
-	friendsFactory.getFriends()
+	friendsFactory.getFriends(fi.viewingUserID)
 	.then(function(data) {
 		// console.log(data);
+
+		for(var i = 0; i < data.length; i++) {
+			fi.friendsIDList.push(data[i].user_id);
+			if(data[i].profile_image === null) {
+				data[i].profile_image = 'default-profile.png';
+			}
+		}
 		fi.friends = data;
-		// for(var i =0; i < data.length; i++) {
-		// 	// console.log(data[i]);
-		// 	fi.friends.push(data[i]);
-		// }
-		// console.log('the friends array now is ');
-		// console.log(fi.friends);
+		console.log(data);
+		fi.doneCheck = true;
+
+		if(fi.currentUserID == fi.viewingUserID) {
+
+			friendsFactory.getUsers()
+			.then(function(data) {
+				console.log("friends" + fi.friendsIDList);
+				for(var i = 0; i < data.length; i++) {
+					// for(var j = 0; j < fi.friends.length; i++) {
+					// 	if(data[i].user_id.indexOf(fi.members[i].user_id) !== -1) {
+					// 		var isFriend = true;
+					// 	}
+					// 	else {
+					// 		var isFriend = false;
+					// 	}
+					// }
+
+
+					if(data[i].profile_image === null) {
+							var defaultProfileImage = 'default-profile.png';
+					}
+					else {
+						var defaultProfileImage = data[i].profile_image;
+					}
+					console.log(fi.friendsIDList.indexOf(data[i].user_id));
+					if(fi.friendsIDList.indexOf(data[i].user_id) !== -1) {
+						var isFriend = true;
+					}
+					else {
+						var isFriend = false;
+					}
+					var userObj = {
+						fname: data[i].fname,
+						lname: data[i].lname,
+						username: data[i].username,
+						user_id: data[i].user_id,
+						profile_image: defaultProfileImage,
+						isFriend: isFriend
+					}
+					fi.members[i] = userObj;
+				}
+				console.log(fi.members);
+			});
+		}
+
 	});
+// fi.checkingVar = function() {
+// 	console.log('in checkingVar function');
+// 	return false;
+// }
+
+fi.checkFriendship = function(id) {
+
+	if(fi.friendsIDList.indexOf(id) !== -1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+};
+
+fi.removeFriend = function(friendID) {
+	friendsFactory.removeFriend(fi.currentUserID, friendID)
+	.then(function(data) {
+		alert(data + ' is the remove friend response');
+		friendsFactory.getFriends(fi.viewingUserID)
+		.then(function(data) {
+			for(var i = 0; i < data.length; i++) {
+			fi.friendsIDList.push(data[i].user_id);
+			if(data[i].profile_image === null) {
+				data[i].profile_image = 'default-profile.png';
+			}
+		}
+		fi.friends = data;
+		console.log(data);
+		fi.doneCheck = true;
+
+		});
+	});
+	// alert(friendID);
+};
+
+fi.addFriend = function(friendID) {
+	friendsFactory.addFriend(fi.currentUserID, friendID)
+	.then(function(data) {
+		alert(data+ ' is the add friend response');
+		friendsFactory.getFriends(fi.viewingUserID)
+		.then(function(data) {
+			for(var i = 0; i < data.length; i++) {
+			fi.friendsIDList.push(data[i].user_id);
+			if(data[i].profile_image === null) {
+				data[i].profile_image = 'default-profile.png';
+			}
+		}
+		fi.friends = data;
+		console.log(data);
+		fi.doneCheck = true;
+
+		});
+	});
+	// alert(friendID + ' remove');
+}
+
 
 	fi.getProfile = function(id) {
 		fi.profile = friends[id];
@@ -65,12 +173,35 @@ app.factory('friendsFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 			return request;
 		},
 
-		getFriends: function() {
-			var userID = JSON.parse(localStorage.getItem('user')).user_id;
+		getFriends: function(userID) {
+			// var userID = JSON.parse(localStorage.getItem('user')).user_id;
 			console.log(userID + ' is the user id in get friends');
 			var request = $http.get($rootScope.basePath+'/User/friends/'+userID)
 			.then(function(response) {
 				// console.log(response);
+				return response.data;
+			});
+			return request;
+		},
+		getMember: function(id) {
+			var request = $http.get($rootScope.basePath+'/User/user/'+id)
+			.then(function(response) {
+				return response.data;
+			});
+			return request;
+		},
+		removeFriend: function(userID, friendID) {
+			var request = $http.delete($rootScope.basePath+'/user/'+userID+'/friends/friend/'+friendID)
+			.then(function(response) {
+				console.log(response);
+				return response.data;
+			});
+			return request;
+		},
+		addFriend: function(userID, friendID) {
+			var request = $http.post($rootScope.basePath+'/user/'+userID+'/friends/friend/'+friendID)
+			.then(function(response) {
+				console.log(response);
 				return response.data;
 			});
 			return request;

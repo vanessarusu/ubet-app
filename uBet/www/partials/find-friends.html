@@ -12,7 +12,7 @@
         <div class="col col-20 col-offset-80">
             <p  data-ui-sref="tabs.friends" class="button button-icon icon calm ion-person-add padding-right"></p>
         </div>
-        <div class="row"><h2>Find Friends</h2></div>
+        <div class="row light"><h2>Find Friends</h2></div>
 
         <div class="list list-inset">
             <label class="item item-input">
@@ -21,14 +21,18 @@
             </label>
         </div>
         <div>
-            <ul>
-                <li class="light row" data-ng-repeat="person in findFriendsInstance.members | orderBy: findFriendsInstance.sortType | filter: findFriendsInstance.searchUsers">
-                    <a data-ui-sref="tabs.user({userID: person.user_id})">
-                        <div class="col">
-                            {{person.fname}} {{person.lname}}
+            <ul id="memberList">
+                <li class="light" data-ng-repeat="person in findFriendsInstance.members | orderBy: findFriendsInstance.sortType | filter: findFriendsInstance.searchUsers">
+                    <a data-ui-sref="tabs.user({userID: person.user_id})" class="row">
+                        <figure class="col col-20">
+                            <img data-ng-src="../img/{{person.profile_image}}">
+                        </figure>
+                        <div class="col col-66 light memberListItem">
+                            {{person.fname}} {{person.lname}}<span class="inlineUsername">@{{person.username}}</span>
                         </div>
-                        <div class="col">
-                            {{person.username}}
+                        <div class="col friendManagement">
+                            <div data-ng-if="!person.isFriend && person.user_id!=findFriendsInstance.currentUserID"></div>
+                            <div data-ng-if="person.isFriend" class="icon ion-checkmark-circled text-right"></div>
                         </div>
                     </a>
                 </li>

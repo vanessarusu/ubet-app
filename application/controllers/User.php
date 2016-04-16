@@ -7,7 +7,7 @@ class User extends CI_Controller {
 
 		header('Access-Control-Allow-Origin: *');
     	header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, X-PINGOTHER");
-    	header("Access-Control-Allow-Methods: *");
+    	// header("Access-Control-Allow-Methods: *");
     	header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
     	// header("Content-Type: application/json");
 
@@ -41,12 +41,27 @@ class User extends CI_Controller {
 	}
 
 	public function friends($id) {
-		if($friends = $this->UserModel->getAllFriends($id)) {
+
+		if(is_array($friends = $this->UserModel->getAllFriends($id))) {
 			echo json_encode($friends);
 		}
 		else {
 			echo 'failed to get friends';
 		}
+	}
+
+	public function removeFriend($myID, $friendsID) {
+		if($remove = $this->UserModel->removeFriend($myID, $friendsID)) {
+			echo json_encode($remove);
+		}
+		else {
+			echo 'failed remove friend';
+		}
+	}
+
+	public function addFriend($myID, $friendsID) {
+		if($add = $this->UserModel->addFriend($myID, $friendsID))
+		echo json_encode($add);
 	}
 
 

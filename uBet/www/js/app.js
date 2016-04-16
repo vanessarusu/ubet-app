@@ -32,7 +32,7 @@ app.run(['$rootScope', '$state', function($rootScope, $state) {
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function(e, toState, fromState, toParams, fromParams, options) {
         console.log(toState.name);
-        console.log(localStorage.getItem('user'));
+        // console.log(localStorage.getItem('user'));
 
         // e.preventDefault();
 
@@ -225,7 +225,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
     })
     .state('tabs.profile.friends', {
         url:'/profile/friends',
-        templateUrl:'partials/profilePartials/friends.html'
+        resolve: {
+          viewMember: function(){return null;}
+        },
+        templateUrl:'partials/profilePartials/friends.html',
+        controller: 'friendsController',
+        controllerAs: 'profileFriendsInstance'
     })
     .state('tabs.profile.following', {
         url:'/profile/following',
@@ -237,7 +242,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
 
 
     .state('tabs.friends', {
+      cache: false,
       url: '/friends',
+      resolve: {
+        viewMember: function(){return null;}
+      },
       views: {
         'friends-tab': {
           templateUrl: 'partials/friends.html',
@@ -250,6 +259,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
     // changed this
     .state('tabs.user', {
       url: '/friends/:userID',
+      resolve: {
+        viewMember: function($stateParams, friendsFactory) {
+          return friendsFactory.getMember($stateParams.userID)
+          .then(function(data) {
+            if(data.profile_image === null) {
+              data.profile_image = 'default-profile.png';
+            }
+            return data;
+          });
+
+        }
+      },
       views: {
         'friends-tab': {
           templateUrl: 'partials/public-profile.html',
@@ -259,9 +280,39 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
       }
       // templateUrl: 'partials/profilePartials/activity.html'
     })
+    .state('tabs.user.activity', {
+      url: '/friends/:userID/activity',
+      templateUrl: 'partials/profilePartials/activity.html'
+    })
+    .state('tabs.user.bets', {
+      url: '/friends/:userID/bets',
+      templateUrl: 'partials/profilePartials/bets.html'
+    })
+    .state('tabs.user.wins', {
+      url: '/friends/:userID/wins',
+      templateUrl: 'partials/profilePartials/wins.html'
+    })
+    .state('tabs.user.losses', {
+      url: '/friends/:userID/losses',
+      templateUrl: 'partials/profilePartials/losses.html'
+    })
+    .state('tabs.user.friends', {
+      url: '/friends/:userID/friends',
+      templateUrl: 'partials/profilePartials/friends.html',
+      controller: 'friendsController',
+      controllerAs: 'profileFriendsInstance'
+    })
+    .state('tabs.user.following', {
+      url: '/friends/:userID/following',
+      templateUrl: 'partials/profilePartials/following.html'
+    })
 
     .state('tabs.find-friends', {
+      cache: false,
       url: '/friends/find-friends',
+      resolve: {
+        viewMember: function(){return null;}
+      },
       views: {
         'friends-tab': {
           templateUrl: 'partials/find-friends.html',
@@ -274,8 +325,19 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
       url: '/bets',
       views: {
         'bets-tab': {
-          templateUrl: 'partials/home.html',
-          // controller: 'HomeTabCtrl'
+          templateUrl: 'partials/bets.html',
+          controller: 'betController',
+          controllerAs: 'betInstance'
+        }
+      }
+    })
+    .state('tabs.bet', {
+      url: '/bets/:betID',
+      views: {
+        'bets-tab' : {
+          templateUrl: 'partials/bet-page.html',
+          controller: 'betController',
+          controllerAs: 'betPageInstance'
         }
       }
     })

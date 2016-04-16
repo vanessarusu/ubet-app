@@ -29,6 +29,13 @@ class Bet extends CI_Controller {
 		}
 	}
 
+	public function getAll($userID) {
+		if($allBets = $this->BetModel->getAllBets($userID)){
+			echo json_encode($allBets);
+			// var_dump($allBets);
+		}
+	}
+
 	
 
 	public function update() {

@@ -16,6 +16,10 @@ $dark:                            #444 !default;
 */
 
 // The path for our ionicons font files, relative to the built CSS in www/css
+
+a {
+	text-decoration: none;
+}
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // COLOURS -----------------------------------------------------------------
@@ -37,6 +41,18 @@ $font-family-sans-serif:           'Noto Sans', "Helvetica Neue", sans-serif !de
 // $font-family-monospace:           monospace !default;
 
 $font-family-base:                $font-family-sans-serif !default;
+
+
+@mixin vertical-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+
+
 
 
  // REGISTRATION AND LOGIN -----------------------------------------------------
@@ -93,7 +109,7 @@ figure img {
 	margin-top:	5px;
 }
 
-#loginPartial, #profilePartial {
+#loginPartial, #profilePartial, #publicProfilePartial {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2d3538+0,262628+100 */
 	background: #2d3538; /* Old browsers */
 	background: -moz-radial-gradient(center, ellipse cover,  #2d3538 0%, #262628 100%); /* FF3.6-15 */
@@ -261,7 +277,42 @@ input#editProfileName {
 	background-color: $balanced;
 }
 
+.inlineUsername {
+	font-size: 12px;
+	opacity: 0.2;
+	padding-left: 7px;
+}
 
+#memberList a.row {
+	padding: 0;
+}
+
+#memberList li {
+	// padding: 2px;
+	// margin-left: 10px;
+	// @include vertical-align();
+}
+
+
+#memberList .memberListItem, #memberList .friendManagement {
+	margin-top: 17px;
+	margin-left: -7px;
+	// @include vertical-align();
+}
+
+#memberList img {
+	max-width: 45px;
+	margin-top: 4px;
+}
+
+#memberList li:nth-child(odd) {
+	background-color: rgba(224,224,224, 0.03);
+}
+
+.friendManagement {
+	margin-top: 0;
+	color: $balanced;
+}
 
 
 

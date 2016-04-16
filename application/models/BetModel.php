@@ -83,6 +83,24 @@ class BetModel extends CI_Model {
 
 	}
 
+	public function getAllBets($userID) {
+		$this->db->select('bet_id');
+		$this->db->where(array('user_id' => $userID));
+		$q = $this->db->get('tbl_bet_participants');
+		// return $q->result();
+
+		$IDarray = array();
+
+		foreach($q->result_array() as $row) {
+			$IDarray[] = $row['bet_id'];
+			// echo $row;
+		}
+
+		$this->db->where_in('bet_id', $IDarray);
+		$r = $this->db->get('tbl_bets');
+		return $r->result_array();
+	}
+
 }
 
 ?>

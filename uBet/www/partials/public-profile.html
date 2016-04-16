@@ -1,4 +1,4 @@
-<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="profilePartial">
+<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="publicProfilePartial">
 
     <ion-nav-bar class="bar-dark">
         <ion-nav-back-button class="button-clear">
@@ -9,51 +9,68 @@
     <ion-content padding="true" class="has-tabs">
 
         <div class="row">
+            <!-- <p class="light">{{friendProfileInstance.viewMember}}</p> -->
             <div class="col col-33" class="padding-right">
                 <figure id="profileImage" >
-                    <img data-ng-src="../img/{{friendsProfileInstance.profile.profile_img}}">
+                    <img data-ng-src="../img/{{friendProfileInstance.viewMember.profile_image}}">
                 </figure>
         	</div>
 
         	<div class="col col-50">
-                <h2 class="profileName padding-top">{{friendsProfileInstance.profile.fname}}</h2>
-        		<p class="calm username">@{{friendsProfileInstance.profile.username}}</p>
-                <p>{{friendsProfileInstace.profile}} is the profile</p>
+                <h2 class="profileName padding-top">{{friendProfileInstance.viewMember.fname}}</h2>
+        		<p class="calm username">@{{friendProfileInstance.viewMember.username}}</p>
+                <p>{{friendProfileInstace.viewMember}}</p>
                 <div class="row" id="currencyDisplay">
                 
                     <figure class="col col-20" id="profileCurrencyIcon">
                         <img src="../img/currency.png">
                     </figure>
-                            <p class="balanced col currencyCount">{{friendsProfileInstance.profile.currency}}</p>
+                            <p class="balanced col currencyCount">{{friendProfileInstance.viewMember.currency}}</p>
                 </div>
-        		<!-- <button class="button button-balanced button-small">Bet {{profileInstance.currentUser.fname}}</button> -->
-            <!-- <button class="friendStatus">Add or remove</button> -->
+
+                <button class="button button-small button-outline button-balanced" 
+                data-ng-if="!friendProfileInstance.checkFriendship(friendProfileInstance.currentUserID) && friendProfileInstance.doneCheck == true && friendProfileInstance.currentUserID !=friendProfileInstance.viewMember.user_id"
+                data-ng-click="friendProfileInstance.addFriend(friendProfileInstance.viewMember.user_id)">
+                    Add Friend
+                </button>
+
+
+
+
+
+                <button class="button button-small button-outline button-balanced" 
+                data-ng-if="friendProfileInstance.checkFriendship(friendProfileInstance.currentUserID) && friendProfileInstance.doneCheck == true"
+                data-ng-click="friendProfileInstance.removeFriend(friendProfileInstance.viewMember.user_id)">
+                    Remove Friend
+                </button>
+
         	</div>
+
 
         </div>
         <div class="row" id="profileNavigation">
 
-            <a data-ng-click="activeButton ='a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.profile.activity" class="col profileButton icon ion-arrow-graph-up-right">
+            <a data-ng-click="activeButton ='a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.user.activity" class="col profileButton icon ion-arrow-graph-up-right">
 	        <!-- Activity -->
             </a>
 
-	        <a data-ng-click="activeButton = 'b'" data-ng-class="{'activeButton' : activeButton =='b'}" data-ui-sref="tabs.profile.bets" class="col profileButton icon ion-ios-stopwatch">
+	        <a data-ng-click="activeButton = 'b'" data-ng-class="{'activeButton' : activeButton =='b'}" data-ui-sref="tabs.user.bets" class="col profileButton icon ion-ios-stopwatch">
 	        <!-- Current Bets -->
 	        </a>
 
-	        <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.profile.wins" class="col profileButton icon ion-trophy">
+	        <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.user.wins" class="col profileButton icon ion-trophy">
 	        <!-- Wins -->
 	        </a>
 
-	        <a data-ng-click="activeButton = 'd'" data-ng-class="{'activeButton' : activeButton =='d'}" data-ui-sref="tabs.profile.losses" class="col profileButton icon ion-sad">
+	        <a data-ng-click="activeButton = 'd'" data-ng-class="{'activeButton' : activeButton =='d'}" data-ui-sref="tabs.user.losses" class="col profileButton icon ion-sad">
 	        <!-- Losses -->
 	        </a>
 
-	        <a data-ng-click="activeButton = 'e'" data-ng-class="{'activeButton' : activeButton =='e'}" data-ui-sref="tabs.profile.friends" class="col profileButton icon ion-person-stalker">
+	        <a data-ng-click="activeButton = 'e'" data-ng-class="{'activeButton' : activeButton =='e'}" data-ui-sref="tabs.user.friends" class="col profileButton icon ion-person-stalker">
 	        <!-- Friends -->
 	        </a>
 
-	        <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.profile.following" class="col profileButton icon ion-star">
+	        <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.user.following" class="col profileButton icon ion-star">
 	        <!-- Following -->
 	        </a>
         </div>

@@ -20,14 +20,14 @@
             </label>
         </div>
         <div>
-            <ul>
-                <li class="light row" data-ng-repeat="friend in friendsInstance.friends">
-                    <a data-ui-sref="tabs.user({userID: friend.user_id})">
-                        <div class="col">
-                            {{friend.fname}} {{friend.lname}}
-                        </div>
-                        <div class="col">
-                            {{friend.username}}
+            <ul id="memberList">
+                <li class="light" data-ng-repeat="friend in friendsInstance.friends">
+                    <a data-ui-sref="tabs.user({userID: friend.user_id})" class="row">
+                        <figure class="col col-20">
+                            <img data-ng-src="../img/{{friend.profile_image}}">
+                        </figure>
+                        <div class="col col-66 light memberListItem">
+                            {{friend.fname}} {{friend.lname}}   <span class="inlineUsername">@{{friend.username}}</span>
                         </div>
                     </a>
                 </li>

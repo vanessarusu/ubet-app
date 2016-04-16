@@ -27,12 +27,22 @@ class UserModel extends CI_Model {
 
 	public function getAllFriends($id) {
 		$this->db->where(array('from_user' => $id, 'status' => 3));
-		$this->db->or_where(array('to_user' => $id, 'status' => 3));
+		$this->db->or_where(array('to_user' => $id));
+		$this->db->where("(from_user=".$this->db->escape($id)." OR to_user=".$this->db->escape($id).") AND status=3");
+
 		$q = $this->db->get('tbl_friends');
+		// print_r($q);
+
 		$q = $q->result_array();
-		
+		// if($q == null)
+
 		$friendsIDList = array();
 		$count = 0;
+
+		if(is_array($q) && count($q)<=0)
+		{
+			return $q;
+		} 
 
 		foreach($q as $key => $value) {
 			if($value['to_user'] == $id) {
@@ -42,13 +52,24 @@ class UserModel extends CI_Model {
 				$friendsIDList[$count++]=($value['to_user']);
 			}
 			else {
-				return false;
 			}
 		}
 
 		$this->db->where_in('user_id', $friendsIDList);
 		$r = $this->db->get('tbl_users');
 		return $r->result_array();
+	}
+
+	public function removeFriend($userID, $friendID) {
+		$this->db->where(array('from_user' => $userID, 'to_user' => $friendID));
+		$this->db->or_where(array('from_user' => $friendID));
+		$q = $this->db->delete('tbl_friends');
+		return $q;
+	}
+
+	public function addFriend($userID, $friendID) {
+		$q = $this->db->insert('tbl_friends', array('from_user' => $userID, 'to_user' => $friendID, 'status' =>3));
+			return $q;
 	}
 	
 	public function uploadImage($data) {
