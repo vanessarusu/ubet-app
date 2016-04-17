@@ -1,0 +1,16 @@
+
+<div id="createBetTermsContainer">
+	<h2 class="dark">Pending Bets Here</h2>
+	<div>
+		<ul id="betList">
+			<li class="dark" data-ng-repeat="bet in betInstance.pendingBets">
+				<a data-ui-sref="tabs.pending-bet({betID: bet.bet_id})" class="row">
+					<div class="col col-66 dark memberListItem">
+						{{bet.bet_name}}
+					</div>
+				</a>
+		</ul>
+	</div>
+	
+
+</div>

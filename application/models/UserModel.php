@@ -26,8 +26,8 @@ class UserModel extends CI_Model {
 	}
 
 	public function getAllFriends($id) {
-		$this->db->where(array('from_user' => $id, 'status' => 3));
-		$this->db->or_where(array('to_user' => $id));
+		// $this->db->where(array('from_user' => $id, 'status' => 3));
+		// $this->db->or_where(array('to_user' => $id));
 		$this->db->where("(from_user=".$this->db->escape($id)." OR to_user=".$this->db->escape($id).") AND status=3");
 
 		$q = $this->db->get('tbl_friends');

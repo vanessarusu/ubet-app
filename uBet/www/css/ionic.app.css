@@ -48,7 +48,7 @@ figure img {
   height: 30px;
   margin-top: 5px; }
 
-#loginPartial, #profilePartial, #publicProfilePartial {
+#loginPartial, #profilePartial, #publicProfilePartial, #betPartial {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2d3538+0,262628+100 */
   background: #2d3538;
   /* Old browsers */
@@ -125,7 +125,7 @@ figure img {
 .profileButton:hover {
   color: #92c83e; }
 
-#profileNavigation {
+#profileNavigation, #betNavigation {
   margin: 18px 0; }
 
 #profileImage {
@@ -180,14 +180,14 @@ input#editProfileName {
   opacity: 0.2;
   padding-left: 7px; }
 
-#memberList a.row {
+#memberList a.row, #moderatorList a.row {
   padding: 0; }
 
-#memberList .memberListItem, #memberList .friendManagement {
+#memberList .memberListItem, #memberList .friendManagement, #moderatorList .memberListItem, #moderatorList .friendManagement {
   margin-top: 17px;
   margin-left: -7px; }
 
-#memberList img {
+#memberList img, #moderatorList img {
   max-width: 45px;
   margin-top: 4px; }
 
@@ -197,6 +197,10 @@ input#editProfileName {
 .friendManagement {
   margin-top: 0;
   color: #92c83e; }
+
+.statusAlert {
+  background-color: #ffc900;
+  color: #fff; }
 
 /*!
   Ionicons, v2.0.1

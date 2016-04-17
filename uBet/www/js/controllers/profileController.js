@@ -7,6 +7,7 @@ app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFa
 	$scope.$on('$ionicView.beforeEnter', function() {
 	    pc.currentUser = JSON.parse(localStorage.getItem('user'));
 	    console.log(pc.currentUser);
+	    // profileFactory.checkProfileImage(pc.currentUser);
 
 		if(pc.currentUser.profile_img == null) {
 			pc.currentUser.profile_img = 'default-profile.png';
@@ -107,7 +108,7 @@ app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFa
     			localStorage.removeItem('user');
     			localStorage.setItem('user', JSON.stringify(updatedUser));
     			pc.currentUser = updatedUser;
-    			console.log(updatedUser.fname +' after updating');
+    			// console.log(updatedUser.fname +' after updating');
     			// console.log(pc.currentUser + ' is the current user before getting');
     			// pc.currentUser = JSON.parse(localStorage.getItem('user'));
     			// console.log(pc.currentUser + ' is the current user after getting');
@@ -129,10 +130,18 @@ app.factory('profileFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 					}
 				})
 				.error(function(data) {
-					console.log('error '+data);
+					// console.log('error '+data);
 					alert('failure');
 				});
 				return request;
+			},
+			checkProfileImage: function(user) {
+				// console.log('checking from the factory');
+				if(user.profile_image == null) {
+					user.profile_image = 'default-profile.png';
+					return user.profile_image;
+				}
+				return;
 			},
 			// updateFname : function(newName) {
 			// 	alert(newName);
@@ -241,7 +250,7 @@ app.service('fileUpload', ['$http', '$httpParamSerializer', function ($http, $ht
         // $http.post(uploadUrl, $httpParamSerializer({'file':file}))
         // $http.post(uploadUrl, "data=" + encodeURIComponent(fd))
         .success(function(data){
-        	console.log(data);
+        	// console.log(data);
         })
         .error(function(){
         });

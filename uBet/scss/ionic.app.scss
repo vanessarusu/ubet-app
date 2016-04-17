@@ -31,6 +31,10 @@ $balanced: #92c83e !default;
 // ubet Blue -------------------
 $calm: #2bb892 !default;
 
+
+
+$energized:                       #ffc900 !default;
+
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 
 
@@ -109,7 +113,7 @@ figure img {
 	margin-top:	5px;
 }
 
-#loginPartial, #profilePartial, #publicProfilePartial {
+#loginPartial, #profilePartial, #publicProfilePartial, #betPartial {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2d3538+0,262628+100 */
 	background: #2d3538; /* Old browsers */
 	background: -moz-radial-gradient(center, ellipse cover,  #2d3538 0%, #262628 100%); /* FF3.6-15 */
@@ -117,6 +121,14 @@ figure img {
 	background: radial-gradient(ellipse at center,  #2d3538 0%,#262628 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d3538', endColorstr='#262628',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
+// #betPartial {
+// 	background: #93c840; /* Old browsers */
+// 	background: -moz-radial-gradient(center, ellipse cover,  #93c840  0%, #88b034 100%); /* FF3.6-15 */
+// 	background: -webkit-radial-gradient(center, ellipse cover,  #93c840 0%,#88b034 100%); /* Chrome10-25,Safari5.1-6 */
+// 	background: radial-gradient(ellipse at center,  #93c840 0%,#88b034 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+// 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93c840', endColorstr='#88b034',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+// }
 
 #loginLogo {
 	margin: 50px 0;
@@ -194,7 +206,7 @@ figure img {
 }
 
 
-#profileNavigation {
+#profileNavigation, #betNavigation {
 	margin: 18px 0;
 }
 
@@ -283,7 +295,7 @@ input#editProfileName {
 	padding-left: 7px;
 }
 
-#memberList a.row {
+#memberList a.row, #moderatorList a.row {
 	padding: 0;
 }
 
@@ -294,13 +306,13 @@ input#editProfileName {
 }
 
 
-#memberList .memberListItem, #memberList .friendManagement {
+#memberList .memberListItem, #memberList .friendManagement, #moderatorList .memberListItem, #moderatorList .friendManagement {
 	margin-top: 17px;
 	margin-left: -7px;
 	// @include vertical-align();
 }
 
-#memberList img {
+#memberList img, #moderatorList img {
 	max-width: 45px;
 	margin-top: 4px;
 }
@@ -312,6 +324,12 @@ input#editProfileName {
 .friendManagement {
 	margin-top: 0;
 	color: $balanced;
+}
+
+.statusAlert {
+	background-color: $energized;
+	color: $light;
+	// height: 200px;
 }
 
 

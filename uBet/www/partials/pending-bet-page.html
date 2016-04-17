@@ -6,17 +6,20 @@
     </ion-nav-bar>
 
         <ion-content padding="true" class="has-tabs">
-        <div class="row statusAlert">{{betPageInstance.betStatus}}</div>
+        <div class="row statusAlert">{{pendingBetInstance.betStatus}}</div>
+        <div class="row padding text-center">
+            <p class="padding balanced">You have been invited to a bet! Please review the terms outlined below and accept or deny.</p>
+        </div>
         <div class="row">
             <div class="col col-33" class="padding-right">
                 <figure id="profileImage" >
-                    <img data-ng-src="../img/{{betPageInstance.viewBet.bet_image}}">
+                    <img data-ng-src="../img/{{pendingBetInstance.viewBet.bet_image}}">
                 </figure>
             </div>
 
             <div class="col col-50">
-                <h2 class="profileName padding-top">{{betPageInstance.viewBet.bet_name}}</h2>
-                <p class="calm username">{{betPageInstance.viewBet.wager_amount}}</p>
+                <h2 class="profileName padding-top">{{pendingBetInstance.viewBet.bet_name}}</h2>
+                <p class="calm username">{{pendingBetInstance.viewBet.wager_amount}}</p>
  <!--                <div class="row" id="currencyDisplay">
                 
                     <figure class="col col-20" id="profileCurrencyIcon">
@@ -49,29 +52,22 @@
 
             <div class="row" id="betNavigation">
 
-            <a data-ng-click="activeButton ='a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.bet.overview" class="col profileButton icon ion-arrow-graph-up-right">
+            <a data-ng-click="activeButton ='a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.pending-bet.overview" class="col profileButton icon ion-arrow-graph-up-right">
             <!-- Activity -->
             </a>
 
-            <a data-ng-click="activeButton = 'b'" data-ng-class="{'activeButton' : activeButton =='b'}" data-ui-sref="tabs.bet.members" class="col profileButton icon ion-ios-stopwatch">
+            <a data-ng-click="activeButton = 'b'" data-ng-class="{'activeButton' : activeButton =='b'}" data-ui-sref="tabs.pending-bet.members" class="col profileButton icon ion-ios-stopwatch">
             <!-- Current Bets -->
             </a>
 
-            <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.bet.activity" class="col profileButton icon ion-trophy">
+            <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.pending-bet.actions" class="col profileButton icon ion-trophy">
             <!-- Wins -->
             </a>
 
-            <a data-ng-click="activeButton = 'd'" data-ng-class="{'activeButton' : activeButton =='d'}" data-ui-sref="tabs.bet.proof" class="col profileButton icon ion-sad">
-            <!-- Losses -->
-            </a>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
 
-            <a data-ng-click="activeButton = 'e'" data-ng-class="{'activeButton' : activeButton =='e'}" data-ui-sref="tabs.bet.followers" class="col profileButton icon ion-person-stalker">
-            <!-- Friends -->
-            </a>
-
-            <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.bet.chat" class="col profileButton icon ion-star">
-            <!-- Following -->
-            </a>
         </div>
 
         <div ui-view></div>

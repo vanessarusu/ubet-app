@@ -27,7 +27,7 @@ var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker', 'ng
 
 app.run(['$rootScope', '$state', function($rootScope, $state) {
   // localStorage.removeItem('user');
-    $rootScope.basePath = 'http://localhost/ubet-app/index.php';
+    $rootScope.basePath = 'http://localhost:8888/ubet-app/index.php';
     $rootScope.user = false;
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function(e, toState, fromState, toParams, fromParams, options) {
@@ -62,78 +62,6 @@ app.run(['$rootScope', '$state', function($rootScope, $state) {
 }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider){
-
-// $httpProvider.defaults.useXDomain = true;
-    // $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-
-    /**
-   * The workhorse; converts an object to x-www-form-urlencoded serialization.
-   * @param {Object} obj
-   * @return {String}
-   */ 
-  // var param = function(obj) {
-  //   var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
-      
-  //   for(name in obj) {
-  //     value = obj[name];
-        
-  //     if(value instanceof Array) {
-  //       for(i=0; i<value.length; ++i) {
-  //         subValue = value[i];
-  //         fullSubName = name + '[' + i + ']';
-  //         innerObj = {};
-  //         innerObj[fullSubName] = subValue;
-  //         query += param(innerObj) + '&';
-  //       }
-  //     }
-  //     else if(value instanceof Object) {
-  //       for(subName in value) {
-  //         subValue = value[subName];
-  //         fullSubName = name + '[' + subName + ']';
-  //         innerObj = {};
-  //         innerObj[fullSubName] = subValue;
-  //         query += param(innerObj) + '&';
-  //       }
-  //     }
-  //     else if(value !== undefined && value !== null)
-  //       query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-  //   }
-      
-  //   return query.length ? query.substr(0, query.length - 1) : query;
-  // };
- 
-  // // Override $http service's default transformRequest
-  // $httpProvider.defaults.transformRequest = [function(data) {
-  //   return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-  // }];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     $urlRouterProvider.otherwise('/')
@@ -207,24 +135,24 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
     // PROFILE SUB TABS --------------------------------------------------------
 
     .state('tabs.profile.activity', {
-        url: '/profile/activity',
+        url: '/activity',
         templateUrl: 'partials/profilePartials/activity.html'
     })
 
     .state('tabs.profile.bets', {
-        url:'/profile/bets',
+        url:'/bets',
         templateUrl:'partials/profilePartials/bets.html'
     })
     .state('tabs.profile.wins', {
-        url:'/profile/wins',
+        url:'/wins',
         templateUrl:'partials/profilePartials/wins.html'
     })
     .state('tabs.profile.losses', {
-        url:'/profile/losses',
+        url:'/losses',
         templateUrl:'partials/profilePartials/losses.html'
     })
     .state('tabs.profile.friends', {
-        url:'/profile/friends',
+        url:'/friends',
         resolve: {
           viewMember: function(){return null;}
         },
@@ -233,7 +161,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
         controllerAs: 'profileFriendsInstance'
     })
     .state('tabs.profile.following', {
-        url:'/profile/following',
+        url:'/following',
         templateUrl:'partials/profilePartials/following.html'
     })
 
@@ -255,8 +183,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
         }
       }
     })
+    // USER SPECIFIC ROUTES -------------------------------------------------------------------------
 
-    // changed this
     .state('tabs.user', {
       url: '/friends/:userID',
       resolve: {
@@ -268,7 +196,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
             }
             return data;
           });
-
         }
       },
       views: {
@@ -280,30 +207,34 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
       }
       // templateUrl: 'partials/profilePartials/activity.html'
     })
+
+     // USER NESTED ROUTES -------------------------------------------------------------------------
+
+
     .state('tabs.user.activity', {
-      url: '/friends/:userID/activity',
+      url: '/activity',
       templateUrl: 'partials/profilePartials/activity.html'
     })
     .state('tabs.user.bets', {
-      url: '/friends/:userID/bets',
+      url: '/bets',
       templateUrl: 'partials/profilePartials/bets.html'
     })
     .state('tabs.user.wins', {
-      url: '/friends/:userID/wins',
+      url: '/wins',
       templateUrl: 'partials/profilePartials/wins.html'
     })
     .state('tabs.user.losses', {
-      url: '/friends/:userID/losses',
+      url: '/losses',
       templateUrl: 'partials/profilePartials/losses.html'
     })
     .state('tabs.user.friends', {
-      url: '/friends/:userID/friends',
+      url: '/friends',
       templateUrl: 'partials/profilePartials/friends.html',
       controller: 'friendsController',
       controllerAs: 'profileFriendsInstance'
     })
     .state('tabs.user.following', {
-      url: '/friends/:userID/following',
+      url: '/following',
       templateUrl: 'partials/profilePartials/following.html'
     })
 
@@ -321,8 +252,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
         }
       }
     })
+
+
+  // BETS TAB ROUTES -------------------------------------------------------------------------
+
+
     .state('tabs.bets', {
       url: '/bets',
+      cache: false,
+      resolve: {
+        viewBet: function() {return null;}
+      },
       views: {
         'bets-tab': {
           templateUrl: 'partials/bets.html',
@@ -331,8 +271,69 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
         }
       }
     })
+    .state('tabs.bets.current', {
+      url: '/current',
+      templateUrl: 'partials/betPartials/current.html'
+    })
+
+    .state('tabs.bets.resolve-phase', {
+      url: '/resolve',
+      templateUrl: 'partials/betPartials/resolve-phase.html'
+    })
+    .state('tabs.bets.history', {
+      url: '/history',
+      templateUrl: 'partials/betPartials/history.html'
+    })
+    .state('tabs.bets.pending', {
+      url: '/pending',
+      templateUrl: 'partials/betPartials/pending-bets.html'
+    })
+
+   // BET TAB NESTED ROUTES -------------------------------------------------------------------------
+
+    .state('tabs.pending-bet', {
+      url: '/bets/pending-bet/:betID',
+      resolve: {
+        viewBet: function($stateParams, betFactory) {
+          console.log($stateParams.betID);
+          console.log('in resolve of pending');
+          return betFactory.getBet($stateParams.betID)
+          .then(function(data) {
+            return data;
+          });
+        }
+      },
+      views: {
+        'bets-tab' : {
+          templateUrl: 'partials/pending-bet-page.html',
+          controller: 'betController',
+          controllerAs: 'pendingBetInstance'
+        }
+      }
+    })
+    .state('tabs.pending-bet.overview', {
+          url: '/overview',
+          templateUrl: 'partials/betPartials/pending-bet-overview.html'
+        })
+        .state('tabs.pending-bet.members', {
+          url: '/members',
+          templateUrl: 'partials/betPartials/pending-bet-members.html'
+        })
+        .state('tabs.pending-bet.actions', {
+          url: '/actions',
+          templateUrl: 'partials/betPartials/bet-actions.html'
+        })
     .state('tabs.bet', {
       url: '/bets/:betID',
+      resolve: {
+        viewBet: function($stateParams, betFactory) {
+          console.log('in resolve');
+          return betFactory.getBet($stateParams.betID)
+          .then(function(data) {
+            return data;
+          });
+        }
+      },
       views: {
         'bets-tab' : {
           templateUrl: 'partials/bet-page.html',
@@ -341,6 +342,31 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
         }
       }
     })
+    .state('tabs.bet.overview', {
+      url: '/overview',
+      templateUrl: 'partials/betPartials/bet-overview.html'
+    })
+    .state('tabs.bet.members', {
+      url: '/members',
+      templateUrl: 'partials/betPartials/bet-members.html'
+    })
+    .state('tabs.bet.activity', {
+      url: '/activity',
+      templateUrl: 'partials/profilePartials/losses.html'
+    })
+    .state('tabs.bet.proof', {
+      url: '/proof',
+      templateUrl: 'partials/profilePartials/losses.html'
+    })
+    .state('tabs.bet.followers', {
+      url: '/followers',
+      templateUrl: 'partials/profilePartials/losses.html'
+    })
+    .state('tabs.bet.chat', {
+      url: '/chat',
+      templateUrl: 'partials/profilePartials/losses.html'
+    })
+
 
 
 

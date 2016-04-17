@@ -153,7 +153,7 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 		console.log('end date is '+ cb.currentEndDate);
 	}
 
-	friendsFactory.getFriends()
+	friendsFactory.getFriends(cb.creator.user_id)
 	.then(function(data) {
 		cb.friends = data;
 		console.log(cb.friends);

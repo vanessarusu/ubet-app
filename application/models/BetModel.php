@@ -6,7 +6,7 @@ class BetModel extends CI_Model {
 
 	// TEST FUNCTION ---------------------------------------------------------------------------------
 
-	public function getBet($id) {
+	public function getOne($id) {
 		$q = $this->db->get_where('tbl_bets', array('bet_id' => $id));
 		
 		if($q->num_rows() ==1) {
@@ -24,7 +24,7 @@ class BetModel extends CI_Model {
 
 		$newBetData = array(
 			'bet_name' => $betInfo['bet_name'],
-			'bet_status' => 1,
+			'bet_status' => 5,
 			'start_date' => date("Y-m-d H:i:s", strtotime($betInfo['start_date'])),
 			'end_date' => date("Y-m-d H:i:s", strtotime($betInfo['end_date'])),
 			'wager_amount' => $betInfo['wager_amount'],
@@ -51,7 +51,8 @@ class BetModel extends CI_Model {
 			$newPartipantData = array( 
 				'bet_id' => $bet_id,
 				'user_id' => $participant['user_id'],
-				'role_id' => 2
+				'role_id' => 2,
+				'accepted_bet' => 3
 			);
 
 			$insert_participant = $this->db->insert('tbl_bet_participants', $newPartipantData);
@@ -63,7 +64,8 @@ class BetModel extends CI_Model {
 			$newPartipantData = array( 
 				'bet_id' => $bet_id,
 				'user_id' => $moderator['user_id'],
-				'role_id' => 3
+				'role_id' => 3,
+				'accepted_bet' => 3
 			);
 
 			$insert_moderator = $this->db->insert('tbl_bet_participants', $newPartipantData);
@@ -74,7 +76,8 @@ class BetModel extends CI_Model {
 		$creatorData = array(
 			'bet_id' => $bet_id,
 			'user_id' => $betInfo['creator_user_id'],
-			'role_id' => 1
+			'role_id' => 1,
+			'accepted_bet' => 1
 		);
 
 		$insert_creator = $this->db->insert('tbl_bet_participants', $creatorData);
@@ -99,6 +102,15 @@ class BetModel extends CI_Model {
 		$this->db->where_in('bet_id', $IDarray);
 		$r = $this->db->get('tbl_bets');
 		return $r->result_array();
+	}
+
+	public function getBetMembers($id) {
+		$this->db->from('tbl_bet_participants');
+		$this->db->where(array('bet_id' => $id));
+		$this->db->join('tbl_users', 'tbl_bet_participants.user_id = tbl_users.user_id');
+		$q = $this->db->get();
+
+		return $q->result_array();
 	}
 
 }

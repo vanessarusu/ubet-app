@@ -1,6 +1,6 @@
 // angular.module('uBet', ['ionic'])
 
-app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFactory', 'fileUpload', 'viewMember', function($rootScope, $scope, $state, friendsFactory, fileUpload, viewMember){
+app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFactory', 'profileFactory', 'fileUpload', 'viewMember', function($rootScope, $scope, $state, friendsFactory, profileFactory, fileUpload, viewMember){
 	var fi = this;
 	console.log('instance');
 	fi.viewMember = viewMember;
@@ -38,9 +38,10 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 
 		for(var i = 0; i < data.length; i++) {
 			fi.friendsIDList.push(data[i].user_id);
-			if(data[i].profile_image === null) {
-				data[i].profile_image = 'default-profile.png';
-			}
+			profileFactory.checkProfileImage(data[i]);
+			// if(data[i].profile_image === null) {
+			// 	data[i].profile_image = 'default-profile.png';
+			// }
 		}
 		fi.friends = data;
 		console.log(data);
@@ -61,13 +62,13 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 					// 	}
 					// }
 
-
-					if(data[i].profile_image === null) {
-							var defaultProfileImage = 'default-profile.png';
-					}
-					else {
-						var defaultProfileImage = data[i].profile_image;
-					}
+					profileFactory.checkProfileImage(data[i]);
+					// if(data[i].profile_image === null) {
+					// 		var defaultProfileImage = 'default-profile.png';
+					// }
+					// else {
+					// 	var defaultProfileImage = data[i].profile_image;
+					// }
 					console.log(fi.friendsIDList.indexOf(data[i].user_id));
 					if(fi.friendsIDList.indexOf(data[i].user_id) !== -1) {
 						var isFriend = true;
@@ -80,7 +81,7 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 						lname: data[i].lname,
 						username: data[i].username,
 						user_id: data[i].user_id,
-						profile_image: defaultProfileImage,
+						profile_image: data[i].profile_image,
 						isFriend: isFriend
 					}
 					fi.members[i] = userObj;

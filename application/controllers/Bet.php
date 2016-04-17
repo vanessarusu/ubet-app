@@ -34,6 +34,24 @@ class Bet extends CI_Controller {
 			echo json_encode($allBets);
 			// var_dump($allBets);
 		}
+		else {
+			echo 'failed to get one bet';
+		}
+	}
+
+	public function getOne($id) {
+		if($bet = $this->BetModel->getOne($id)) {
+			echo json_encode($bet);
+		}
+	}
+
+	public function getBetMembers($id) {
+		if($members = $this->BetModel->getBetMembers($id)) {
+			echo json_encode($members);
+		}
+		else {
+			echo 'failed to get the members of the bet';
+		}
 	}
 
 	
