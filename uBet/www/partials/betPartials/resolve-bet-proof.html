@@ -1,0 +1,25 @@
+
+<div data-ng-if="resolveBetInstance.viewBet.textProof.length>0">
+	<h5 class="padding-top betSubtitle">Proof:</h5>
+	<ul id="betProofContainer">
+
+	    <li data-ng-repeat="proof in resolveBetInstance.viewBet.textProof">
+
+	        <div class="card">
+	            <div class="item item-text-wrap">
+	                <p class="dark">{{proof.text_content}}</p>
+	            </div>
+	            <div class="item item-divider">
+	            	<p class="calm">{{proof.username}}</p>
+	            	<p class="calm">{{proof.proof_datetime | date:'fullDate'}}</p>
+	            </div>
+	        </div>
+	    </li>
+	</ul>
+</div>
+
+<div data-ng-if="resolveBetInstance.viewBet.textProof.length==0">
+    <h3 class="textCenter balanced">No Proof! :(</h3>
+	<p class="light textCenter padding">Sorry, No proof was ever submitted for this bet!</p>
+</div>
+        

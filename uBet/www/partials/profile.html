@@ -4,6 +4,11 @@
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i> Back
         </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear button-positive padding-right" ng-click="logout()"><i class="ion-power light padding-right"></i>
+            </button>
+        </ion-nav-buttons>
+
     </ion-nav-bar>
 
     <ion-content padding="true" class="has-tabs">
@@ -11,7 +16,7 @@
         <div class="row">
             <div class="col col-33" class="padding-right">
                 <figure id="profileImage" >
-                    <img data-ng-src="../img/{{profileInstance.currentUser.profile_img}}">
+                    <img data-ng-src="{{profileInstance.rootImagePath}}/{{profileInstance.currentUser.profile_img}}">
                 </figure>
         	</div>
 
@@ -23,10 +28,8 @@
                     <figure class="col col-20" id="profileCurrencyIcon">
                         <img src="../img/currency.png">
                     </figure>
-                            <p class="balanced col currencyCount">{{profileInstance.currentUser.currency}}</p>
+                            <p class="balanced col currencyCount">{{profileInstance.currentUser.currency}} Points</p>
                 </div>
-        		<!-- <button class="button button-balanced button-small">Bet {{profileInstance.currentUser.fname}}</button> -->
-            <!-- <button class="friendStatus">Add or remove</button> -->
         	</div>
 
             <div class="col">
@@ -34,6 +37,7 @@
         	</div>
         </div>
         <div class="row" id="profileNavigation">
+        <!-- <div class="col"></div> -->
 
             <a data-ng-click="activeButton ='a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.profile.activity" class="col profileButton icon ion-arrow-graph-up-right">
 	        <!-- Activity -->
@@ -54,12 +58,12 @@
 	        <a data-ng-click="activeButton = 'e'" data-ng-class="{'activeButton' : activeButton =='e'}" data-ui-sref="tabs.profile.friends" class="col profileButton icon ion-person-stalker">
 	        <!-- Friends -->
 	        </a>
+            <!-- <div class="col"></div> -->
 
-	        <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.profile.following" class="col profileButton icon ion-star">
+	        <!-- <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.profile.following" class="col profileButton icon ion-ios-heart"> -->
 	        <!-- Following -->
-	        </a>
+	        <!-- </a> -->
         </div>
-
         <div ui-view></div>
 
     </ion-content>

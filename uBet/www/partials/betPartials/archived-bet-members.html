@@ -1,0 +1,36 @@
+
+<div id="profileFriendsContainer">
+    <div>
+    <h5 class="padding-top betSubtitle">Competitors:</h5>
+        <ul id="memberList">
+            <li class="light" data-ng-repeat="member in archivedBetInstance.betMembers" data-ng-if="member.role_id==2 || member.role_id==1">
+                <a data-ui-sref="tabs.user({userID: member.user_id})" class="row">
+                    <figure class="col col-20">
+                         <img data-ng-src="{{archivedBetInstance.rootImagePath}}/{{member.profile_image}}">
+
+                        <span class="pendingStatusIcon icon" data-ng-class="member.voteStatusIcon"></span>
+                    </figure>
+                    <div class="col col-66 light memberListItem">
+                        {{member.fname}} {{member.lname}} <span class="inlineUsername">@{{member.username}}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <h5 class="padding-top betSubtitle" data-ng-if="archivedBetInstance.moderator==true">Moderator: </h5>
+        <ul id="moderatorList">
+            <li class="dark" data-ng-repeat="member in archivedBetInstance.betMembers" data-ng-if="member.role_id==3">
+                <a data-ui-sref="tabs.user({userID: member.user_id})" class="row">
+                    <figure class="col col-20">
+                         <img data-ng-src="{{archivedBetInstance.rootImagePath}}/{{member.profile_image}}">
+
+                        <span class="pendingStatusIcon icon" data-ng-class="member.pendingClass"></span>
+                    </figure>
+                    <div class="col col-66 light memberListItem">
+                        {{member.fname}} {{member.lname}} <span class="inlineUsername">@{{member.username}}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>

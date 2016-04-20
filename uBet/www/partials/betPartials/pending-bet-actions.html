@@ -1,0 +1,11 @@
+
+<div id="profileFriendsContainer">
+    <div data-ng-if="pendingBetInstance.pendingResponse==true">
+        <button data-ng-click="pendingBetInstance.acceptBet(pendingBetInstance.viewBet.bet_id)" class="button button-balanced">Accept The Bet!</button>
+        <button data-ng-click="pendingBetInstance.declineBet(pendingBetInstance.viewBet.bet_id)" class="button button-energized">Nope, this isn't for me!</button>
+    </div>
+    <div data-ng-if="pendingBetInstance.pendingResponse==false">
+    	<h3 class="textCenter balanced">You're In!</h3>
+    	<p class="light textCenter padding-top">You have accepted the bet! Go bug your competitors to do the same!</p>
+    </div>
+</div>

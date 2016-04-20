@@ -1,0 +1,35 @@
+<div id="profileFriendsContainer">
+    <h5 class="padding-top betSubtitle">Submit Proof:</h5>
+        <label class="item item-input">
+            <input type="text" 
+            data-ng-model="betPageInstance.proofContent"
+            required>
+        </label>
+
+        <button class="button button-balanced button-full" data-ng-click="betPageInstance.submitProof()">
+            Submit Proof
+        </button>
+    <div class="padding">
+    </div>
+    <div>
+        <h5 class="padding-top betSubtitle">Proof Submitted Already: </h5>
+        <ul id="betProofContainer">
+
+         <li data-ng-repeat="proof in betPageInstance.viewBet.textProof | orderBy: '-proof_datetime'">
+                <div class="card">
+                    <div class="item item-text-wrap">
+                        <p class="dark">{{proof.text_content}}</p>
+                    </div>
+                    <div class="item item-divider">
+                        <p class="calm">{{proof.username}}</p>
+                        <p class="calm">{{proof.proof_datetime}}</p>
+                    </div>
+                    <!-- {{proof.text_content}} -->
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+        

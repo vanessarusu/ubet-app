@@ -3,9 +3,35 @@
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i> Back
         </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear button-positive padding-right" ng-click="logout()"><i class="ion-power light padding-right"></i>
+            </button>
+        </ion-nav-buttons>
     </ion-nav-bar>
 
-        <ion-content padding="true">
-          Template here
-        </ion-content>
-      </ion-view>
+        <ion-content padding="true" id="newsfeedContainer">
+        <!-- <div id="newsfeedContainer"> -->
+        <h2 class="betName textCenter padding">Recent Activity</h2>
+
+  	<ul id="eventList">
+		<li class="dark" data-ng-repeat="event in homeInstance.homeEvents">
+		<div class="card">
+    		<div class="item item-text-wrap">
+    		<a data-ui-sref="{{event.link}}">
+    		<p class="calm">{{event.fname}} {{event.lname}}</p>
+    		<p class="calm">{{event.event_content}}
+    		</p>
+    		</a>
+			</div>
+			<div class="item item-divider">
+				<p class="balanced">{{event.username}}</p>
+				<p class="balanced">{{event.event_datetime}}</p>
+			</div>
+		</div>
+
+		</li>
+	</ul>
+	<!-- </div> -->
+</ion-content>
+</ion-view>
+

@@ -65,7 +65,7 @@ class User extends CI_Controller {
 	}
 
 
-	public function do_upload() {
+	public function do_upload($userId) {
 		// if($this->input->is_ajax_request()) {
 		// 	echo 'it is ajax';
 		// }
@@ -86,7 +86,15 @@ class User extends CI_Controller {
 		else {
 			$upload_data = array('upload_data' =>$this->upload->data());
 			foreach($upload_data as $value) {
-				$filename = $value['file_name'];
+ 				$filename = $value['file_name'];
+
+				if(!$this->UserModel->updateImage($userId, $filename)) {
+					echo 'didnt update the file';
+				}
+				else {
+					echo 'updated the file';
+				}
+
 			}
 			// if ($this->session->userInfo) {
 			// 	echo 'if is true';

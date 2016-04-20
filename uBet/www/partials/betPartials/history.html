@@ -1,6 +1,29 @@
 
 <div id="createBetTermsContainer">
-	<h2 class="dark">history bets here</h2>
+	<h3 class="swagHeading">history bets here</h3>
+    <div>
+        <ul id="betList">
+        <h5 class="padding-top betSubtitle">Resolved Bets:</h5>
+            <li class="dark padding" data-ng-repeat="bet in betInstance.archivedBets">
+                <a data-ui-sref="tabs.archived-bet({betID: bet.bet_id})" class="row">
+                    <div class="col col-66 light memberListItem">
+                        {{bet.bet_name}}
+                    </div>
+                </a>
+            </li>
+            </ul>
+            <div class="spacer"></div>
+            <ul id="memberList">
+            <h5 class="padding-top betSubtitle">Unresolved Bets:</h5>
+                <li class="dark padding" data-ng-repeat="bet2 in betInstance.unresolvedArchivedBets">
+                <a data-ui-sref="tabs.archived-bet({betID: bet2.bet_id})" class="row">
+                    <div class="col col-66 light memberListItem">
+                        {{bet2.bet_name}}
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
 	
 
 </div>

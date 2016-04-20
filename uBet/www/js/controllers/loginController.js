@@ -1,16 +1,17 @@
 // angular.module('uBet', ['ionic'])
 
 app.controller('loginController', ['$scope', '$rootScope', '$state', 'authFactory', function($scope, $rootScope, $state, authFactory){
+	$scope.logout = function() {
+		localStorage.removeItem('user');
+		$state.go('tabs.feed');
+	}
 	var welcome = this;
 	welcome.userTaken = false;
 	welcome.notice = false;
 	welcome.login = function(user) {
 		authFactory.login(user)
 		.then(function(loggedInUser) {
-			// console.log(loggedInUser);
 			if(loggedInUser.user_id) {
-				// alert('there is a user');
-				// console.log(data.data);
 				localStorage.setItem("user", JSON.stringify(loggedInUser));
 				console.log(localStorage.getItem('user'));
 
@@ -25,7 +26,6 @@ app.controller('loginController', ['$scope', '$rootScope', '$state', 'authFactor
 				// $state.go('tabs.feed');
 			}
 		});
-		// alert('login');
 	}
 
 	welcome.register = function(user) {
@@ -34,7 +34,6 @@ app.controller('loginController', ['$scope', '$rootScope', '$state', 'authFactor
 			console.log(user);
 			authFactory.createUser(user)
 			.then(function(data) {
-				console.log(data);
 				$state.go('home');
 			})
 		}
@@ -81,14 +80,6 @@ app.factory('authFactory', ['$rootScope','$http', '$httpParamSerializer', functi
 			});
 			return request;
 				
-				// var request = $http.post($rootScope.basePath+'/Login/create', userInfo)
-				// .success(function(data) {
-				// })
-				// .error(function(data) {
-				// 	console.log('error '+data);
-				// 	alert('failure');
-				// });
-				// return request;
 			},
 
 		checkUsername : function(username) {
@@ -118,6 +109,26 @@ app.factory('authFactory', ['$rootScope','$http', '$httpParamSerializer', functi
 
 				};
 				return loggedInUser;
+			});
+			return request;
+		},
+		getUser: function(userID) {
+			var request = $http.get($rootScope.basePath+'/User/user/'+userID)
+			.then(function(data) {
+				var loggedInUser = {
+					user_id: data.data.user_id,
+					fname: data.data.fname,
+					lname: data.data.lname,
+					username: data.data.username,
+					email: data.data.email,
+					profile_image : data.data.profile_image,
+					birthdate: data.data.birthdate,
+					city: data.data.city,
+					country: data.data.country,
+					currency: data.data.currency
+				};
+				localStorage.removeItem('user');
+				localStorage.setItem("user", JSON.stringify(loggedInUser));
 			});
 			return request;
 		}

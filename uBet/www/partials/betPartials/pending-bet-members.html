@@ -1,27 +1,31 @@
 
 <div id="profileFriendsContainer">
     <div>
-    <p class="light">Members: </p>
+    <h5 class="padding-top betSubtitle">Competitors:</h5>
         <ul id="memberList">
-            <li class="dark" data-ng-repeat="member in pendingBetInstance.betMembers" data-ng-if="member.role_id==2 || member.role_id==1">
+            <li class="light" data-ng-repeat="member in pendingBetInstance.betMembers" data-ng-if="member.role_id==2 || member.role_id==1">
                 <a data-ui-sref="tabs.user({userID: member.user_id})" class="row">
                     <figure class="col col-20">
-                        <img data-ng-src="../img/{{member.profile_image}}">
+                        <!-- <img data-ng-src="../img/{{member.profile_image}}"> -->
+                         <img data-ng-src="{{pendingBetInstance.rootImagePath}}/{{member.profile_image}}">
+
+                        <span class="pendingStatusIcon icon" data-ng-class="member.pendingClass"></span>
                     </figure>
-                    <div class="col col-66 memberListItem">
+                    <div class="col col-66 light memberListItem">
                         {{member.fname}} {{member.lname}} <span class="inlineUsername">@{{member.username}}</span>
                     </div>
                 </a>
             </li>
         </ul>
-        <p class="light" data-ng-if="pendingBetInstance.moderator==true">Moderator: </p>
+        <h5 class="padding-top betSubtitle" data-ng-if="pendingBetInstance.moderator==true">Moderator: </h5>
         <ul id="moderatorList">
             <li class="dark" data-ng-repeat="member in pendingBetInstance.betMembers" data-ng-if="member.role_id==3">
                 <a data-ui-sref="tabs.user({userID: member.user_id})" class="row">
                     <figure class="col col-20">
-                        <img data-ng-src="../img/{{member.profile_image}}">
+                    <img data-ng-src="{{pendingBetInstance.rootImagePath}}/{{member.profile_image}}">
+                        <span class="pendingStatusIcon icon" data-ng-class="member.pendingClass"></span>
                     </figure>
-                    <div class="col col-66 memberListItem">
+                    <div class="col col-66 light memberListItem">
                         {{member.fname}} {{member.lname}} <span class="inlineUsername">@{{member.username}}</span>
                     </div>
                 </a>

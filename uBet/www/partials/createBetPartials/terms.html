@@ -1,67 +1,183 @@
 
 <div id="createBetTermsContainer">
-	<h2 class="dark">Set Bet Terms</h1>
-	<p class="dark">Set the terms of your bet below!</p>
-	<div class="list">
+<div class="card">
+    <div class="item item-text-wrap">
+
+		<h3 class="betCreationSubtitle">Set Bet Terms</h3>
+		<div class="spacer"></div>
+		<div class="list">
 
 	<!-- BET NAME -->
 
+			<label class="item item-input row">
+	            <span class="icon ion-flag editProfileIcons col-10"></span>
+	            <input type="text" placeholder="Bet Name" data-ng-model="cbInstance.betName">
+	        </label>
+	        <div class="spacer"></div>
 
-		<label class="item item-input row">
-            <span class="icon ion-person editProfileIcons col-10"></span>
-            <input type="text" placeholder="Bet Name" data-ng-model="cbInstance.betName">
-        </label>
 
+	  		<div class="row padding">
 
-  	<div class="row">
+	  	<!-- START DATE -->
 
-  	<!-- START DATE -->
+		  		<div class="col">
+		  			<ionic-datepicker 
+			  		date="cbInstance.currentStartDate" 
+			  		min="cbInstance.minDate" 
+			  		max="cbInstance.maxDate" 
+			  		callback="cbInstance.betStartDate"
+			  		data-ng-model="cbInstance.currentStartDate">
 
-  		<div class="col">
-  			<ionic-datepicker 
-	  		date="cbInstance.currentStartDate" 
-	  		min="cbInstance.minDate" 
-	  		max="cbInstance.maxDate" 
-	  		callback="cbInstance.betStartDate"
-	  		data-ng-model="cbInstance.currentStartDate">
+		            	<button class="button button-calm datepickerButton">Start Date: {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</button>
 
-            	<button class="button button-calm button-small button-outline">Start Date : {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</button>
+		        </ionic-datepicker>
+		  		</div>
 
-        </ionic-datepicker>
-  		</div>
+	  	<!-- END DATE -->
 
-  	<!-- END DATE -->
+		  		<div class="col">
+		  			<ionic-datepicker 
+			        date="cbInstance.currentEndDate" 
+			        min="cbInstance.currentStartDate" 
+			        max="cbInstance.maxDate" 
+			        callback="cbInstance.betEndDate"
+			        data-ng-model="cbInstance.currentEndDate">
 
-  		<div class="col">
-  			<ionic-datepicker 
-	        date="cbInstance.currentEndDate" 
-	        min="cbInstance.currentStartDate" 
-	        max="cbInstance.maxDate" 
-	        callback="cbInstance.betEndDate"
-	        data-ng-model="cbInstance.currentEndDate">
+						<button class="button button-calm datepickerButton">End Date: {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</button>
 
-				<button class="button button-calm button-small button-outline">End Date : {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</button>
+				</ionic-datepicker>
+		  		</div>
+		  	</div>
 
-		</ionic-datepicker>
-  		</div>
-  	</div>
+		  	<div class="spacer"></div>
 
 
 	<!-- WAGER AMOUNT -->
-		<p>Wager Amount: {{cbInstance.wagerAmount}}</p>
-		<div class="item range">
-			<i class="icon ion-volume-low"></i>
-			<input type="range" name="volume" min="5" max="{{cbInstance.creatorCurrency}}" value="cbInstance.wagerAmount" data-ng-model="cbInstance.wagerAmount">
-			<i class="icon ion-volume-high"></i>
-		</div>
+			<p class="setBetWager dark textCenter">Wager Amount: <span class="balanced">{{cbInstance.wagerAmount}} Points</span></p>
+			<p class="dark textCenter padding">You must wager a miniumun of 5 points, and a maximum of your current balance.</p>
+			<div class="item range cardInputBorder">
+				<i class="icon ion-android-star-outline"></i>
+				<input type="range" name="volume" min="5" max="{{cbInstance.creatorCurrency}}" value="cbInstance.wagerAmount" data-ng-model="cbInstance.wagerAmount">
+				<i class="icon ion-android-star"></i>
+			</div>
+			<div class="spacer"></div>
 
-	<!-- BET TERMS -->
+		<!-- BET TERMS -->
 
-		<label class="item item-input item-floating-label">
-    		<span class="input-label">Bet Terms</span>
-    		<textarea rows="5" placeholder="Bet Terms"
-    		data-ng-model="cbInstance.betTerms"
-    		data-ng-blur="cbInstance.saveData()"></textarea>
-  		</label>
+			<label class="item item-input item-floating-label cardInputBorder">
+	    		<span class="input-label">Bet Terms</span>
+	    		<textarea rows="5" placeholder="Bet Terms"
+	    		data-ng-model="cbInstance.betTerms"
+	    		data-ng-blur="cbInstance.saveData()"></textarea>
+	  		</label>
+	  		<div class="spacer"></div>
+  		</div>
+
+
+
 	</div>
 </div>
+	<div class="card">
+	    <div class="item item-text-wrap">
+	    	<h3 class="betCreationSubtitle">Choose Competitors</h3>
+	    	<p class="dark textCenter padding">Choose who you want to compete against. Competitors must be friends. Use the search below if your friend is not already shown in the list!</p>
+	<!--    <div class="row">
+	        <div class="col padding emptyMember">{{cbInstance.mainCompetitorID}}</div>
+	    </div>
+	 -->
+	    
+	    	<ul>
+	        	<div class="row">
+	            	<li class="col" data-ng-repeat="comp in cbInstance.competitors">
+	                <!-- todo, need to click these to remove them -->
+	                <!-- todo, need to add image -->
+	                	<a data-ng-click="cbInstance.removeCompetitor(comp)">
+	                    	<div class="padding emptyMember">{{comp.fname}}</div>
+	                	</a>
+	            	</li>
+	        	</div>
+	    	</ul>
+
+
+	    	<div class="list list-inset">
+	            <label class="item item-input cardInputBorder">
+	                <i class="icon ion-search placeholder-icon"></i>
+	                <input type="text" placeholder="Find Friend" data-ng-model="cbInstance.searchUsers">
+	            </label>
+	        </div>
+	        <div>
+	            <ul id="memberList">
+	                <li class="light" data-ng-repeat="friend in cbInstance.friends | filter: cbInstance.searchUsers | limitTo:5">
+	                    <a data-ng-click="cbInstance.addCompetitor(friend)" class="row">
+	                    <figure class="col col-20">
+	                    	<!-- <img data-ng-src="../img/{{friend.profile_image}}"> -->
+    	                    <img data-ng-src="{{cbInstance.rootImagePath}}/{{friend.profile_image}}">
+
+	                    </figure>
+	                        <div class="col col-66 dark memberListItem">
+	                            {{friend.fname}} {{friend.lname}}
+	                        </div>
+	                    </a>
+	                </li>
+	            </ul>
+	        </div>
+	        
+	    </div>
+	</div>
+
+	<div class="card">
+    	<div class="item item-text-wrap">
+
+
+	    	<h3 class="betCreationSubtitle">Choose Moderator</h3>
+	    	<p class="dark textCenter padding">
+	    		Moderators are optional. <span class="bold">They will not contribute or win any points.</span> The moderator only needs to vote if the competitors cannot resolve on their own. If submitted, the moderator vote will determine the winner.
+	    	</p>
+
+	    		<ul>
+    	<div class="row">
+    		<li class="col" data-ng-repeat="comp in cbInstance.moderators">
+    		<a data-ng-click="cbInstance.removeModerator(comp)">
+    			<figure class="col col-20">
+    				<!-- <img data-ng-src="../img/{{comp.profile_img}}">ggggg -->
+                    <img data-ng-src="{{cbInstance.rootImagePath}}/{{comp.profile_img}}">
+
+    			</figure>
+    			<!-- todo, need to click these to remove them -->
+    			<!-- todo, need to add image -->
+					<div class="padding emptyMember">{{comp.fname}}</div>
+				</a>
+    		</li>
+    	</div>
+	</ul>
+	 	
+
+			<div class="list list-inset">
+	            <label class="item item-input cardInputBorder">
+	                <i class="icon ion-search placeholder-icon"></i>
+	                <input type="text" placeholder="Find Friend" data-ng-model="cbInstance.searchModeratedUsers">
+	            </label>
+	        </div>
+	        <div>
+	            <ul id="moderatorList">
+	                <li class="light" data-ng-repeat="friend in cbInstance.friends | filter: cbInstance.searchModeratedUsers">
+	                    <a data-ng-click="cbInstance.addModerator(friend)" class="row">
+	                    <figure class="col col-20">
+	                    	<!-- <img data-ng-src="../img/{{friend.profile_image}}"> -->
+	                   	 <img data-ng-src="{{cbInstance.rootImagePath}}/{{friend.profile_image}}">
+
+	                    </figure>
+	                        <div class="col col-66 dark memberListItem">
+	                            {{friend.fname}} {{friend.lname}}
+	                        </div>
+	                    </a>
+	                </li>
+	            </ul>
+	        </div>
+
+
+
+    	</div>
+    </div>
+</div>
+

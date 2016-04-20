@@ -1,0 +1,71 @@
+<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="betPartial">
+<ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear button-positive padding-right" ng-click="logout()"><i class="ion-power light padding-right"></i>
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+        <ion-content padding="true" class="has-tabs">
+            <div class="statusAlert textCenter">
+                <p class="textCenter padding">
+                {{archivedBetInstance.betStatus}}
+                </p>
+            </div>
+        <div class="row">
+            <div class="col col-33 col-offset-33" class="padding-right">
+                <figure id="betImage">
+                    <img data-ng-src="../img/{{archivedBetInstance.viewBet.bet_image}}">
+                </figure>
+            </div>
+        </div>
+            <div>
+                <h2 class="betName textCenter">{{archivedBetInstance.viewBet.bet_name}}</h2>
+                <p class="light textCenter padding-top">Created by: 
+                    <span class="calm username">@{{archivedBetInstance.creator.username}}</span>
+                </p>
+            </div>
+
+            <div class="row" id="betNavigation">
+
+            <!-- OVERVIEW -->
+            <div class="col"></div>
+
+            <a data-ng-click="activeButton ='a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.archived-bet.overview" class="col profileButton icon ion-android-list">
+            </a>
+
+            <!-- MEMBERS -->
+
+            <a data-ng-click="activeButton = 'b'" data-ng-class="{'activeButton' : activeButton =='b'}" data-ui-sref="tabs.archived-bet.members" class="col profileButton icon ion-person-stalker">
+            </a>
+
+            <!-- ACTIVITY -->
+
+            <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.archived-bet.activity" class="col profileButton icon ion-arrow-graph-up-right">
+            </a>
+
+            <!-- PROOF -->
+
+            <a data-ng-click="activeButton = 'd'" data-ng-class="{'activeButton' : activeButton =='d'}" data-ui-sref="tabs.archived-bet.proof" class="col profileButton icon ion-upload">
+            </a>
+
+            <!-- FOLLOWERS -->
+
+            <!-- <a data-ng-click="activeButton = 'e'" data-ng-class="{'activeButton' : activeButton =='e'}" data-ui-sref="tabs.archived-bet.followers" class="col profileButton icon ion-ios-heart">
+            </a> -->
+
+            <!-- CHAT -->
+
+            <!-- <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.archived-bet.chat" class="col profileButton icon ion-chatbubbles">
+            </a> -->
+            <div class="col"></div>
+
+        </div>
+
+        <div ui-view></div>
+
+        </ion-content>
+      </ion-view>

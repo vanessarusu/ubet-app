@@ -1,0 +1,59 @@
+<ion-view view-title='<img src="img/ubet-logo-ko.png" class="logo">' id="betPartial">
+<ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+        <ion-content padding="true" class="has-tabs">
+        <div class="statusAlert textCenter">
+        <p class="textCenter padding">
+            {{resolveBetInstance.betStatus}}
+        </p>
+        </div>
+        <div class="row">
+            <div class="col col-33 col-offset-33" class="padding-right">
+                <figure id="betImage" >
+                    <img data-ng-src="../img/{{resolveBetInstance.viewBet.bet_image}}">
+                </figure>
+            </div>
+        </div>
+
+            <div>
+                <h2 class="betName textCenter">{{resolveBetInstance.viewBet.bet_name}}</h2>
+                <p class="light textCenter padding-top">Created by: <span class="calm username">@{{resolveBetInstance.creator.username}}</span></p>
+
+
+            </div>
+        <div class="row" id="betNavigation">
+        <div class="col"></div>
+
+            <!-- OVERVIEW -->
+
+            <a data-ng-click="activeButton = 'a'" data-ng-class="{'activeButton' : activeButton =='a'}" data-ui-sref="tabs.resolve-bet.overview" class="col profileButton icon ion-android-list">
+            </a>
+
+            <!-- MEMBERS -->
+
+            <a data-ng-click="activeButton = 'b'" data-ng-class="{'activeButton' : activeButton =='b'}" data-ui-sref="tabs.resolve-bet.members" class="col profileButton icon ion-person-stalker">
+            </a>
+
+            <!-- PROOF -->
+
+            <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.resolve-bet.proof" class="col profileButton icon ion-upload">
+            </a>
+
+            <!-- VOTE -->
+            
+             <a data-ng-click="activeButton = 'd'" data-ng-class="{'activeButton' : activeButton =='d'}" data-ui-sref="tabs.resolve-bet.vote" class="col profileButton icon ion-android-checkmark-circle">
+            </a>
+
+
+            <div class="col"></div>
+
+        </div>
+
+        <div ui-view></div>
+
+        </ion-content>
+      </ion-view>

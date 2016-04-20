@@ -1,23 +1,25 @@
 
 <div id="profileFriendsContainer">
-<div class="list list-inset">
+<h3 class="swagHeading">Friends</h3>
+    <div class="list list-inset">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search Friends">
+                <input type="text" placeholder="Search Friends" data-ng-model="profileFriendsInstance.searchUsers">
             </label>
-        </div>
-        <div>
-            <ul id="memberList">
-                <li class="light" data-ng-repeat="friend in profileFriendsInstance.friends">
-                    <a data-ui-sref="tabs.user({userID: friend.user_id})" class="row">
-                        <figure class="col col-20">
-                            <img data-ng-src="../img/{{friend.profile_image}}">
-                        </figure>
-                        <div class="col col-66 light memberListItem">
-                            {{friend.fname}} {{friend.lname}}   <span class="inlineUsername">@{{friend.username}}</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    </div>
+    <div>
+        <ul id="memberList">
+            <li class="light" data-ng-repeat="friend in profileFriendsInstance.friends | orderBy: profileFriendsInstance.sortType | filter: profileFriendsInstance.searchUsers">
+                <a data-ui-sref="tabs.user({userID: friend.user_id})" class="row">
+                    <figure class="col col-20">
+                        <img data-ng-src="{{profileFriendsInstance.rootImagePath}}/{{friend.profile_image}}">
+                        <!-- <img data-ng-src="../img/{{friend.profile_image}}"> -->
+                    </figure>
+                    <div class="col col-66 light memberListItem">
+                        {{friend.fname}} {{friend.lname}}   <span class="inlineUsername">@{{friend.username}}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

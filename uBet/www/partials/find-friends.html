@@ -4,15 +4,16 @@
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i> Back
         </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear button-positive padding-right" ng-click="logout()"><i class="ion-power light padding-right"></i>
+            </button>
+        </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content padding="true" class="has-tabs">
-        <!-- <search-bar ng-model="search"></search-bar> -->
-        
-        <div class="col col-20 col-offset-80">
-            <p  data-ui-sref="tabs.friends" class="button button-icon icon calm ion-person-add padding-right"></p>
+        <div class="light">
+            <h2 class="betName textCenter padding">Find Users</h2>
         </div>
-        <div class="row light"><h2>Find Friends</h2></div>
 
         <div class="list list-inset">
             <label class="item item-input">
@@ -25,7 +26,9 @@
                 <li class="light" data-ng-repeat="person in findFriendsInstance.members | orderBy: findFriendsInstance.sortType | filter: findFriendsInstance.searchUsers">
                     <a data-ui-sref="tabs.user({userID: person.user_id})" class="row">
                         <figure class="col col-20">
-                            <img data-ng-src="../img/{{person.profile_image}}">
+                            <!-- <img data-ng-src="../img/{{person.profile_image}}"> -->
+                            <img data-ng-src="{{findFriendsInstance.rootImagePath}}/{{person.profile_image}}">
+
                         </figure>
                         <div class="col col-66 light memberListItem">
                             {{person.fname}} {{person.lname}}<span class="inlineUsername">@{{person.username}}</span>

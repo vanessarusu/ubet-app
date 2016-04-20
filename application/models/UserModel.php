@@ -76,11 +76,11 @@ class UserModel extends CI_Model {
 		echo 'called the file uploading function';
 	}
 
-	public function updateImage($filename) {
+	public function updateImage($userId, $filename) {
 		// return true;
 		// $activeUser = $this->session->userInfo['user_id'];
-		$this->session->userdata('userInfo');
-		return $activeUser;
+		$this->db->where('user_id', $userId);
+		$q = $this->db->update('tbl_users', array('profile_image' => $filename));
 
 	// 	$q = $this->db->get_where('tbl_users', array('username' => $activeUser));
 	// 	return  $q->row_array();

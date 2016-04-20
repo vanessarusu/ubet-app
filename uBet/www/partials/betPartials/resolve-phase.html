@@ -1,6 +1,17 @@
 
 <div id="createBetTermsContainer">
-	<h2 class="dark">Resolution phase bets here</h2>
-	
-
+	<h3 class="swagHeading">Resolution phase bets here</h3>
+	<p class="light textCenter">Bets appear here after their end date has passed. Members have one week to submit their votes, or the bet will be unresolved.</p>
+	<div class="spacer"></div>
+	<div>
+		<ul id="betList">
+			<li class="dark padding" data-ng-repeat="bet in betInstance.resolutionPhaseBets">
+				<a data-ui-sref="tabs.resolve-bet({betID: bet.bet_id})" class="row">
+					<div class="col col-66 light memberListItem">
+						{{bet.bet_name}}
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>

@@ -54,6 +54,21 @@ $route['user/(:num)/friends/friend/(:num)']['POST'] = 'User/addFriend/$1/$2';
 $route['user/(:num)/friends/friend/(:num)']['DELETE'] = 'User/removeFriend/$1/$2';
 $route['user/(:num)/friends/friend/(:num)']['OPTIONS'] = 'User';
 
+$route['Bet/response/user/(:num)/bet/(:num)/reply/(:num)']['POST'] = 'Bet/response/$1/$2/$3';
+$route['Bet/response/user/(:num)/bet/(:num)/reply/(:num)']['OPTIONS'] = 'Bet';
+
+$route['Bet/updateBetStatus/(:num)/status/(:num)']['POST'] = 'Bet/updateBetStatus/$1/$2';
+$route['Bet/updateBetStatus/(:num)/status/(:num)']['OPTIONS'] = 'Bet';
+
+
+$route['Bet/withdrawl/bet/(:num)/user/(:num)/value/(:num)']['POST'] = 'Bet/withdrawForBet/$1/$2/$3';
+$route['Bet/withdrawl/bet/(:num)/user/(:num)/value/(:num)']['OPTIONS'] = 'Bet';
+
+
+$route['Bet/(:num)/vote/user/(:num)/role/(:num)/selected/(:num)']['POST'] = 'Bet/submitVote/$1/$2/$3/$4';
+$route['Bet/(:num)/vote/user/(:num)/role/(:num)/selected/(:num)']['OPTIONS'] = 'Bet';
+
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

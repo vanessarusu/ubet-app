@@ -4,27 +4,36 @@
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i> Back
         </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear button-positive padding-right" ng-click="logout()"><i class="ion-power light padding-right"></i>
+            </button>
+        </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content padding="true" class="has-tabs">
-        <!-- <search-bar ng-model="search"></search-bar> -->
-        
-        <div class="col col-20 col-offset-80">
-            <p  data-ui-sref="tabs.find-friends" class="button button-icon icon calm ion-person-add padding-right"></p>
+        <div class="row">
+            <div class="col col-75 col-offset-10">
+                <h2 class="betName padding textCenter">Your Friends</h2>
+            </div>
+            <div class="col">
+                <p  data-ui-sref="tabs.find-friends" class="button button-icon icon calm ion-person-add"></p>
+            </div>
         </div>
 
         <div class="list list-inset">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search Friends">
+                <input type="text" placeholder="Search Friends" data-ng-model="friendsInstance.searchUsers">
             </label>
         </div>
         <div>
             <ul id="memberList">
-                <li class="light" data-ng-repeat="friend in friendsInstance.friends">
+                <li class="light" data-ng-repeat="friend in friendsInstance.friends | orderBy: friendsInstance.sortType | filter: friendsInstance.searchUsers">
                     <a data-ui-sref="tabs.user({userID: friend.user_id})" class="row">
                         <figure class="col col-20">
-                            <img data-ng-src="../img/{{friend.profile_image}}">
+                            <!-- <img data-ng-src="../img/{{friend.profile_image}}"> -->
+                            <img data-ng-src="{{friendsInstance.rootImagePath}}/{{friend.profile_image}}">
+
                         </figure>
                         <div class="col col-66 light memberListItem">
                             {{friend.fname}} {{friend.lname}}   <span class="inlineUsername">@{{friend.username}}</span>

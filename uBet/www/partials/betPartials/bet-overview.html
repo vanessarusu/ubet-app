@@ -1,7 +1,17 @@
 
 <div id="profileFriendsContainer">
-    <p class="light">Name: {{betPageInstance.viewBet.bet_name}}</p>
-    <p class="light">Start Date: {{betPageInstance.viewBet.start_date}}</p>
-    <p class="light">End Date: {{betPageInstance.viewBet.end_date}}</p>
-    <p class="light">Terms: {{betPageInstance.viewBet.bet_terms}}</p>
+<h5 class="padding-top betSubtitle">Wager Amount: {{betPageInstance.viewBet.wager_amount}} Points</h5>
+<h5 class="padding-top betSubtitle">Dates:</h5>
+    <div class="row">
+    	<p class="col col-50 textCenter light datepickerButton">
+    	<span class="col col-100">Start Date:</span>
+    	{{betPageInstance.viewBet.start_date}}</p>
+
+    	<p class="col col-50 textCenter light datepickerButton">
+    	<span class="col col-100">End Date:</span>
+    	{{betPageInstance.viewBet.end_date}}</p>
+    </div>
+    <h5 class="padding-top betSubtitle">Terms:</h5>
+    <p class="light padding">{{betPageInstance.viewBet.bet_terms}}</p>
+</div>
 </div>

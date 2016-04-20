@@ -37,6 +37,20 @@ $energized:                       #ffc900 !default;
 
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 
+@font-face {
+    font-family: 'swagmastaregular';
+    src: url('../www/fonts/swagmasta-webfont.eot');
+    src: url('../www/fonts/swagmasta-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../www/fonts/swagmasta-webfont.woff2') format('woff2'),
+         url('../www/fonts/swagmasta-webfont.woff') format('woff'),
+         url('../www/fonts/swagmasta-webfont.ttf') format('truetype'),
+         url('../www/fonts/swagmasta-webfont.svg#swagmastaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+$font-family-swagmasta: 'swagmasta', 'Helvetica Neue', sans-serif !default;
 
 $font-family-sans-serif:           'Noto Sans', "Helvetica Neue", sans-serif !default;
 
@@ -60,6 +74,15 @@ $font-family-base:                $font-family-sans-serif !default;
 
 
  // REGISTRATION AND LOGIN -----------------------------------------------------
+.swagHeading {
+	font-family: $font-family-swagmasta;
+	color: $balanced;
+	font-size: 22px;
+	padding: 15px 5px 5px;
+	// text-align: center;
+	border-bottom: 3px solid $calm;
+}
+
 
  .textHint {
  	font-size: 12px;
@@ -70,6 +93,9 @@ figure img {
 	max-width: 100%;
 }
 
+.bold {
+	font-weight: bold;
+}
 
 .activeButton {
 	color: $dark !important;
@@ -122,13 +148,13 @@ figure img {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d3538', endColorstr='#262628',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-// #betPartial {
-// 	background: #93c840; /* Old browsers */
-// 	background: -moz-radial-gradient(center, ellipse cover,  #93c840  0%, #88b034 100%); /* FF3.6-15 */
-// 	background: -webkit-radial-gradient(center, ellipse cover,  #93c840 0%,#88b034 100%); /* Chrome10-25,Safari5.1-6 */
-// 	background: radial-gradient(ellipse at center,  #93c840 0%,#88b034 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-// 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93c840', endColorstr='#88b034',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-// }
+#newsfeedContainer {
+	background: #93c840; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #93c840  0%, #88b034 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover,  #93c840 0%,#88b034 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center,  #93c840 0%,#88b034 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93c840', endColorstr='#88b034',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
 
 #loginLogo {
 	margin: 50px 0;
@@ -173,6 +199,14 @@ figure img {
 	padding: 0;
 	margin: 0;
 }
+.betName {
+	color: $light;
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: bold;
+}
 
 .username {
 	margin: 0;
@@ -216,6 +250,11 @@ figure img {
 
 #profileImage img {
 	max-width: 90%;
+	margin-top: 5px;
+}
+
+#betImage img {
+	max-width: 100%;
 	margin-top: 5px;
 }
 
@@ -295,7 +334,7 @@ input#editProfileName {
 	padding-left: 7px;
 }
 
-#memberList a.row, #moderatorList a.row {
+#memberList a.row, #moderatorList a.row, #betList a.row {
 	padding: 0;
 }
 
@@ -306,18 +345,18 @@ input#editProfileName {
 }
 
 
-#memberList .memberListItem, #memberList .friendManagement, #moderatorList .memberListItem, #moderatorList .friendManagement {
+#memberList .memberListItem, #memberList .friendManagement, #moderatorList .memberListItem, #moderatorList .friendManagement, #betList .memberListItem, #betList .friendManagement {
 	margin-top: 17px;
 	margin-left: -7px;
 	// @include vertical-align();
 }
 
-#memberList img, #moderatorList img {
+#memberList img, #moderatorList img, #betList img {
 	max-width: 45px;
 	margin-top: 4px;
 }
 
-#memberList li:nth-child(odd) {
+#memberList li:nth-child(odd), #betList li:nth-child(odd) {
 	background-color: rgba(224,224,224, 0.03);
 }
 
@@ -328,10 +367,129 @@ input#editProfileName {
 
 .statusAlert {
 	background-color: $energized;
-	color: $light;
+	color: $dark;
+	font-weight: bold;
+	vertical-align: middle;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-radius: 10px;
 	// height: 200px;
 }
 
+.blue {
+	background-color: blue;
+	height: 50px;
+	width: 50px;
+}
+.green {
+	background-color: green;
+	height: 50px;
+	width: 50px;
+}
+
+.red {
+	background-color: red;
+	height: 50px;
+	width: 50px;
+}
+
+.pendingStatusIcon {
+	margin-left: -15px;
+	font-size: 22px;
+}
+
+h5.betSubtitle {
+	line-height: 25px;
+	font-size: 16px;
+	border-bottom: 1px solid $balanced;
+	position: relative;
+	padding: 5px 10px;
+	// font-weight: bold;
+	// letter-spacing: 1px;
+	color: $light;
+	// font-family: $font-family-swagmasta;
+	// background-color: $calm;
+	// opacity: 0.1;
+}
+h5.betSubtitle:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: $balanced;
+	// border-radius: 10px;
+	opacity: 0.03;
+}
+
+h3.betCreationSubtitle {
+	font-family: $font-family-swagmasta;
+	color: $balanced;
+	font-size: 26px !important;
+	padding: 12px 0 5px 0;
+	text-align: center;
+	margin-bottom: 20px !important;
+	border-bottom: 2px solid $balanced;
+}
+.funCopy {
+	font-family: $font-family-swagmasta;
+	// color: $calm;
+	font-size: 16px;
+}
+.spacer {
+	height: 20px;
+	width: 100%;
+}
+.setBetWager {
+	// font-weight: bold;
+	font-family: $font-family-swagmasta;
+	font-size: 18px !important;
+}
+
+.datepickerButton {
+	font-size: 16px !important;
+	font-weight: bold;
+	line-height: 22px !important;
+	padding: 10px !important;
+}
+
+.cardInputBorder {
+	border: 1px solid #eee !important;
+}
+
+
+// Tabs //----------------------------------------//
+
+.tabs-stable > .tabs,
+.tabs.tabs-stable {
+  border-color: #000 !important;
+  background-color: #000 !important;
+  background-image: linear-gradient(0deg, #000, #b2b2b2 50%, transparent 50%) !important;
+  color: #444 !important; 
+}
+  .tabs-stable > .tabs .tab-item .badge,
+  .tabs.tabs-stable .tab-item .badge {
+    background-color: #000 !important;
+    color: #000 !important;
+}
+
+
+.tab-item {
+	// border-left: 1px solid $balanced;
+	background-color: $dark;
+	// color: #fff;
+
+	i {
+		color: #C4FF69;
+		// color: #fff;
+	}
+
+	span {
+		color: #C4FF69;
+	}
+
+}
 
 
 

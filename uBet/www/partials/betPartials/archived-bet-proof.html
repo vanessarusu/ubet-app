@@ -1,0 +1,22 @@
+
+<div data-ng-if="archivedBetInstance.viewBet.textProof.length>0">
+	<h5 class="padding-top betSubtitle">Proof:</h5>
+	<ul id="betProofContainer">
+
+	    <li data-ng-repeat="proof in archivedBetInstance.viewBet.textProof">
+
+	        <div class="card">
+	            <div class="item item-text-wrap">
+	                <p class="dark">{{proof.text_content}}</p>
+	            </div>
+	            <!-- {{proof.text_content}} -->
+	        </div>
+	    </li>
+	</ul>
+</div>
+
+<div data-ng-if="archivedBetInstance.viewBet.textProof.length==0">
+    <h3 class="textCenter balanced">No Proof! :(</h3>
+	<p class="light textCenter padding">Sorry, No proof was ever submitted for this bet!</p>
+</div>
+        

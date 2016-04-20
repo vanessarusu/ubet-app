@@ -1,88 +1,87 @@
 // angular.module('uBet', ['ionic'])
 
-app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFactory', /*'currentUser',*/ 'fileUpload', function($rootScope, $scope, $state, profileFactory, /*currentUser,*/ fileUpload){
+app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFactory', 'betFactory', 'eventFactory', /*'currentUser',*/ 'authFactory', 'fileUpload', function($rootScope, $scope, $state, profileFactory, betFactory, eventFactory, authFactory,/*currentUser,*/ fileUpload){
+	$scope.logout = function() {
+		localStorage.removeItem('user');
+		$state.go('tabs.feed');
+	}
+
 	var pc = this;
 	console.log('instance');
+	pc.rootImagePath = $rootScope.imagePath;
+	$scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+	    viewData.enableBack = true;
+	});
 
 	$scope.$on('$ionicView.beforeEnter', function() {
 	    pc.currentUser = JSON.parse(localStorage.getItem('user'));
 	    console.log(pc.currentUser);
-	    // profileFactory.checkProfileImage(pc.currentUser);
 
+	    pc.activeBets = [];
+	    pc.archivedWins = [];
+	    pc.archivedLosses = [];
+
+	    pc.userEvents = [];
+
+	    console.log(pc.currentUser.profile_image);
+
+		if(pc.currentUser.profile_image == null) {
+			pc.currentUser.profile_image = 'default-profile.png';
+		} else {
+			pc.currentUser.profile_img = pc.currentUser.profile_image;
+		}
 		if(pc.currentUser.profile_img == null) {
 			pc.currentUser.profile_img = 'default-profile.png';
 		}
+		betFactory.getAllBets(pc.currentUser.user_id)
+		.then(function(data) {
+			for (var i = 0; i < data.length; i++) {
+				if(data[i].bet_status == 1 || data[i].bet_status == '1') {
+					pc.activeBets.push(data[i]);
+				}
+				else {
+					if(data[i].winner_id == pc.currentUser.user_id) {
+						pc.archivedWins.push(data[i]);
+					}
+					else { 
+						pc.archivedLosses.push(data[i]);
+					}
+				}
+			}
+
+		});
+
+		eventFactory.getEventsForUserId(pc.currentUser.user_id)
+		.then(function(data) {
+			pc.userEvents = data;
+		});
 	});
 
-	// pc.birthdate = currentUser.birthdate;
 	pc.maxDate = new Date();
-	// console.log(currentUser.data);
-	// pc.currentUser = currentUser;
-	// console.log(pc.currentUser.fname + ' when loading');
-	
-	// pc.currentUser = localStorage.getItem('user');
-	// console.log(currentUser.fname);
-	// console.log(JSON.parse(currentUser));
-	// pc.currentUser = $rootScope.user.data;
 
-
-	// pc.reloadProfile = function() {
-	// 	$state.go('tabs.profile')
-	// 	.then(function(){
-	// 		$state.reload();
-	// 	})
-	// 	// $state.reload();
-	// }
-	
-
-	// console.log($rootScope.user);
-	// if(profileInstance.currentUser.profile_img == null) {
-	// 	alert('there is no profile image');
-	// 	profileInstance.currentUser.profile_img = 'default-profile.png';
-	// }
-	// pc.uploadFile = function() {
-	// 	console.log('in uploadFile');
-	// 	var file = pc.myFile;
-	// 	console.log('file is '+ file);
-	// 	var uploadUrl = 'http://localhost/ubet-app/testUploads';
-	// 	fileUpload.uploadFileToUrl(file, uploadUrl);
-	// }
-	// var uploadFile = function() {
-	// 	alert('in the var upload file');
-	// }
-	// $scope.uploadFile = function() {
-	// 	alert('in the scope upload');
-	// }
 
 	pc.test = function() {
 		alert('called');
-		console.log('called');
 	}
 
 
-	pc.uploadFile = function(e){
-		// alert("Your cookie: " + document.cookie);
-		e.preventDefault();
-		// alert('in file upload');
+	pc.uploadFile = function(){
+
         var file = pc.myFile;
-        var uploadUrl = $rootScope.basePath+'/User/do_upload';
+        console.log('file is ' );
+        console.dir(file);
+        var uploadUrl = $rootScope.basePath+'/User/do_upload/'+pc.currentUser.user_id;
         fileUpload.uploadFileToUrl(file, uploadUrl);
+
+        authFactory.getUser(pc.currentUser.user_id)
+	    pc.currentUser = JSON.parse(localStorage.getItem('user'));
     };
 
 	pc.updateProfile = function(user) {
-		console.log('calling updateProfile');
-		// pc.currentUser = JSON.parse(localStorage.getItem('user'));
-		console.log(user);
-
-		// profileFactory.updateDetails(user)
-		// .then(function(data){
-			// console.log(data);
-		// });
 
 	}
 
     pc.myBlur = function(value) {
-    	console.log('calling blur');
     	pc.currentUser = JSON.parse(localStorage.getItem('user'));
 
     	profileFactory.updateFname(value)
@@ -100,18 +99,12 @@ app.controller('profileController', ['$rootScope','$scope', '$state', 'profileFa
 						currency: data.data.currency
 
 					};
-					// console.log(updatedUser);
-				// return updatedUser;
-    		// console.log(returnedUserData);
     		if(updatedUser.user_id) {
     			alert('there is a returned user id');
     			localStorage.removeItem('user');
     			localStorage.setItem('user', JSON.stringify(updatedUser));
     			pc.currentUser = updatedUser;
-    			// console.log(updatedUser.fname +' after updating');
-    			// console.log(pc.currentUser + ' is the current user before getting');
-    			// pc.currentUser = JSON.parse(localStorage.getItem('user'));
-    			// console.log(pc.currentUser + ' is the current user after getting');
+
     		}
     	})
 
@@ -130,38 +123,18 @@ app.factory('profileFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 					}
 				})
 				.error(function(data) {
-					// console.log('error '+data);
 					alert('failure');
 				});
 				return request;
 			},
 			checkProfileImage: function(user) {
-				// console.log('checking from the factory');
 				if(user.profile_image == null) {
 					user.profile_image = 'default-profile.png';
 					return user.profile_image;
 				}
 				return;
 			},
-			// updateFname : function(newName) {
-			// 	alert(newName);
-			// 	var activeUser = JSON.parse(localStorage.getItem('user'));
-			// 	var activeUserID = activeUser.user_id;
-			// 	// JSON.parse(activeUser);
-			// 	console.log( activeUser.fname + ' is the active user');
 
-
-			// 	// var request = $http.post($rootScope.basePath+'/Login/login', $httpParamSerializer({user: user}), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
-			// 	var request = $http.post($rootScope.basePath+'/User/updateFName/', $httpParamSerializer({user: activeUserID, newName: newName}), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
-			// 	.success(function(data) {
-			// 		console.log(data);
-			// 	})
-			// 	// .error(function(data) {
-			// 	// 	console.log('error in update fname return');
-			// 	// });
-			// 	// return request;
-			// 	return null;
-			// },
 			updateFname : function(newName) {
 				var activeUser = JSON.parse(localStorage.getItem('user'));
 				var activeUserID = activeUser.user_id;
@@ -171,40 +144,12 @@ app.factory('profileFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 				}
 				var request = $http.post($rootScope.basePath+'/User/update', $httpParamSerializer({user: activeUser, updatedInfo : updatedInfo}), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
 					.success(function(data) {
-						// console.log(data);
-				// 		var updatedUser = {
-				// 		user_id: data.data.user_id,
-				// 		fname: data.data.fname,
-				// 		lname: data.data.lname,
-				// 		username: data.data.username,
-				// 		email: data.data.email,
-				// 		profile_image : data.data.profile_image,
-				// 		birthdate: data.data.birthdate,
-				// 		city: data.data.city,
-				// 		country: data.data.country,
-				// 		currency: data.data.curr
 
-				// 	};
-				// 	console.log(updatedUser);
-				// return updatedUser;
-				// return 'hello';
 				});
 				return request;
 			}
 
-			// updateDetails : function(user) {
-			// 	var activeUser = JSON.parse(localStorage.getItem('user'));
-			// 	var activeUserID = activeUser.user_id;
-			// 	// alert(activeUserID);
-			// 	var updatedInfo = {
-			// 		fname : newName
-			// 	}
-			// }
 		}
-
-		// updateFname : function() {
-			// var request = $http.get($rootScope.basePath+'/User/')
-		// }
 
 
 	
@@ -231,26 +176,13 @@ app.service('fileUpload', ['$http', '$httpParamSerializer', function ($http, $ht
         var fd = new FormData();
         console.log(file);
         fd.append('file', file);
-        // console.log(file);
-        // console.log(fd.getAll('file'));
+
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        // var req = {
-        // 	method: 'POST',
-        // 	url: uploadUrl,
-        // 	headers: {
-        // 		'Content-Type' : 'application/x-www-form-urlencoded'
-        // 	},
-        // 	data: $httpParamSerializer(fd)
-        // };
-        // $http(req)
-        // $http.post(uploadUrl, $httpParamSerializer(fd))
-        // $http.post(uploadUrl, $httpParamSerializer({'file':file}))
-        // $http.post(uploadUrl, "data=" + encodeURIComponent(fd))
+    
         .success(function(data){
-        	// console.log(data);
         })
         .error(function(){
         });

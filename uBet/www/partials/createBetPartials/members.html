@@ -1,26 +1,28 @@
 
 <div id="createBetTermsContainer">
-	<h2 class="dark">Choose Competitors</h2>
-	<p class="dark">Choose who will participate!</p>
-<!-- 	<div class="row">
-		<div class="col padding emptyMember">{{cbInstance.mainCompetitorID}}</div>
-	</div>
+<div class="card">
+    <div class="item item-text-wrap">
+    <h2 class="dark">Choose Competitors</h2>
+    <p class="dark">Choose who will participate!</p>
+<!--    <div class="row">
+        <div class="col padding emptyMember">{{cbInstance.mainCompetitorID}}</div>
+    </div>
  -->
- 	
-   	<ul>
-    	<div class="row">
-    		<li class="col" data-ng-repeat="comp in cbInstance.competitors">
-    			<!-- todo, need to click these to remove them -->
-    			<!-- todo, need to add image -->
-    			<a data-ng-click="cbInstance.removeCompetitor(comp)">
-					<div class="padding emptyMember">{{comp.fname}}</div>
-				</a>
-    		</li>
-    	</div>
-	</ul>
+    
+    <ul>
+        <div class="row">
+            <li class="col" data-ng-repeat="comp in cbInstance.competitors">
+                <!-- todo, need to click these to remove them -->
+                <!-- todo, need to add image -->
+                <a data-ng-click="cbInstance.removeCompetitor(comp)">
+                    <div class="padding emptyMember">{{comp.fname}}</div>
+                </a>
+            </li>
+        </div>
+    </ul>
 
 
-	<div class="list list-inset">
+    <div class="list list-inset">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
                 <input type="text" placeholder="Find Friend" data-ng-model="cbInstance.searchUsers">
@@ -37,5 +39,11 @@
                 </li>
             </ul>
         </div>
+        
+
+
+
+    </div>
+</div>
 
 </div>

@@ -1,0 +1,22 @@
+
+<div id="profileActivityContainer">
+<h3 class="swagHeading">Recent Activity:</h3>
+
+	<ul id="eventList">
+		<li class="light" data-ng-repeat="event in friendProfileInstance.userEvents | limitTo:10">
+		<div class="card">
+    		<div class="item item-text-wrap">
+    			<a data-ui-sref="{{event.link}}">	
+    				<p class="calm">{{event.fname}} {{event.lname}}</p>
+    				<p class="calm">{{event.event_content}}</p>
+    			</a>
+
+			</div>
+			<div class="item item-divider">
+				<p class="balanced">{{event.username}}</p>
+				<p class="balanced">{{event.event_datetime}}</p>
+			</div>
+		</div>
+	</ul>
+
+</div>

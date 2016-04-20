@@ -1,0 +1,14 @@
+
+<div id="profileBetsContainer">
+<h3 class="swagHeading">Current Bets</h3>
+<div>
+	<ul id="betList">
+		<li class="light padding" data-ng-repeat="bet in friendProfileInstance.activeBets">
+			<a data-ui-sref="tabs.bet({betID: bet.bet_id})" class="row">
+				<div class="col col-100 light memberListItem">
+					{{bet.bet_name}}
+				</div>
+			</a>
+	</ul>
+	</div>
+</div>

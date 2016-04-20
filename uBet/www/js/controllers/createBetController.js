@@ -1,8 +1,14 @@
 // angular.module('uBet', ['ionic'])
 
-app.controller('createBetController', ['$scope', '$rootScope', '$state', 'createBetFactory', 'friendsFactory', function($scope, $rootScope, $state, createBetFactory, friendsFactory){
+app.controller('createBetController', ['$scope', '$rootScope', '$state', 'createBetFactory', 'friendsFactory', 'betFactory', 'authFactory', 'profileFactory', function($scope, $rootScope, $state, createBetFactory, friendsFactory, betFactory, authFactory, profileFactory){
+	$scope.logout = function() {
+		localStorage.removeItem('user');
+		$state.go('tabs.feed');
+	}
+
 	var cb = this;
 
+	cb.rootImagePath = $rootScope.imagePath;
 
 	cb.creator = JSON.parse(localStorage.getItem('user'));
 	console.log(cb.creator);
@@ -123,12 +129,15 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 			'creator_user_id' : cb.creator.user_id,
 			'bet_particpants' : cb.competitors,
 			'bet_moderators' : cb.moderators
-
 		}
 
 		createBetFactory.createBet(bet).then(function(data) {
-			console.log(data);
+			betFactory.currencyWithdrawl(data.bet_id, cb.creator.user_id, bet.wager_amount)
+			.then(function(data){
+				authFactory.getUser(cb.creator.user_id);
+			});
 		});
+		$state.go('tabs.bets', {}, {reload: true});
 
 		// Build the object to send to the database
 		// Make the database call
@@ -155,6 +164,9 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 
 	friendsFactory.getFriends(cb.creator.user_id)
 	.then(function(data) {
+		for(var i = 0; i < data.length; i++) {
+			profileFactory.checkProfileImage(data[i]);
+		}
 		cb.friends = data;
 		console.log(cb.friends);
 		console.log('is friends ^^');

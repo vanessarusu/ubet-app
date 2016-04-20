@@ -28,6 +28,7 @@ var app = angular.module('uBet', ['ionic', 'ngMessages', 'ionic-datepicker', 'ng
 app.run(['$rootScope', '$state', function($rootScope, $state) {
   // localStorage.removeItem('user');
     $rootScope.basePath = 'http://localhost:8888/ubet-app/index.php';
+    $rootScope.imagePath = 'http://localhost:8888/ubet-app/testUploads';
     $rootScope.user = false;
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function(e, toState, fromState, toParams, fromParams, options) {
@@ -86,10 +87,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
     })
     .state('tabs.feed', {
       url: '/home',
+      cache: false,
       views: {
         'feed-tab': {
           templateUrl: 'partials/home.html',
-          // controller: 'HomeTabCtrl'
+          controller: 'homeController',
+          controllerAs: 'homeInstance'
         }
       }
     })
@@ -98,15 +101,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
 
     .state('tabs.profile', {
       url: '/profile',
-      // cache: false,
-      // params: { updater : 1}, 
-      // resolve : {
-      //   currentUser : function() {
-      //     console.log('in controller resolve');
-      //     console.log(JSON.parse(localStorage.getItem('user')));
-      //     return JSON.parse(localStorage.getItem('user'));
-      //   }
-      // },
+      cache: false,
       views: {
         'profile-tab': {
           templateUrl: 'partials/profile.html',
@@ -118,11 +113,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
 
     .state('tabs.edit-profile', {
         url: '/profile/edit',
-        // resolve: {
-        //     currentUser : function() {
-        //       return JSON.parse(localStorage.getItem('user'));
-        //     }
-        // },
         views: {
             'profile-tab': {
                 templateUrl: 'partials/profile-edit.html',
@@ -205,7 +195,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
           controllerAs: 'friendProfileInstance'
         }
       }
-      // templateUrl: 'partials/profilePartials/activity.html'
     })
 
      // USER NESTED ROUTES -------------------------------------------------------------------------
@@ -213,19 +202,19 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
 
     .state('tabs.user.activity', {
       url: '/activity',
-      templateUrl: 'partials/profilePartials/activity.html'
+      templateUrl: 'partials/friendsProfilePartials/activity.html'
     })
     .state('tabs.user.bets', {
       url: '/bets',
-      templateUrl: 'partials/profilePartials/bets.html'
+      templateUrl: 'partials/friendsProfilePartials/bets.html'
     })
     .state('tabs.user.wins', {
       url: '/wins',
-      templateUrl: 'partials/profilePartials/wins.html'
+      templateUrl: 'partials/friendsProfilePartials/wins.html'
     })
     .state('tabs.user.losses', {
       url: '/losses',
-      templateUrl: 'partials/profilePartials/losses.html'
+      templateUrl: 'partials/friendsProfilePartials/losses.html'
     })
     .state('tabs.user.friends', {
       url: '/friends',
@@ -289,6 +278,45 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
       templateUrl: 'partials/betPartials/pending-bets.html'
     })
 
+    .state('tabs.resolve-bet', {
+      url: '/bets/resolve-bet/:betID',
+      resolve: {
+        viewBet: function($stateParams, betFactory) {
+          return betFactory.getBet($stateParams.betID)
+          .then(function(data) {
+            return data;
+          });
+        }
+      },
+      views: {
+        'bets-tab' : {
+          templateUrl: 'partials/resolve-bet-page.html',
+          controller: 'betController',
+          controllerAs: 'resolveBetInstance'
+        }
+      }
+    })
+
+    .state('tabs.resolve-bet.overview', {
+      url: '/overview',
+      templateUrl: 'partials/betPartials/resolve-bet-overview.html'
+    })
+
+    .state('tabs.resolve-bet.members', {
+      url: '/members',
+      templateUrl: 'partials/betPartials/resolve-bet-members.html'
+    })
+
+    .state('tabs.resolve-bet.proof', {
+      url: '/proof',
+      templateUrl: 'partials/betPartials/resolve-bet-proof.html'
+    })
+
+    .state('tabs.resolve-bet.vote', {
+      url: '/vote',
+      templateUrl: 'partials/betPartials/resolve-bet-vote.html'
+    })
+
    // BET TAB NESTED ROUTES -------------------------------------------------------------------------
 
     .state('tabs.pending-bet', {
@@ -321,8 +349,54 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
         })
         .state('tabs.pending-bet.actions', {
           url: '/actions',
-          templateUrl: 'partials/betPartials/bet-actions.html'
-        })
+          templateUrl: 'partials/betPartials/pending-bet-actions.html'
+    })
+
+
+
+    .state('tabs.archived-bet', {
+      url: '/bets/archived-bet/:betID',
+      resolve: {
+        viewBet: function($stateParams, betFactory) {
+          console.log('in archived bet resolve');
+          return betFactory.getBet($stateParams.betID)
+          .then(function(data) {
+            return data;
+          });
+        }
+      },
+      views: {
+        'bets-tab' : {
+          templateUrl: 'partials/archived-bet-page.html',
+          controller: 'betController',
+          controllerAs: 'archivedBetInstance'
+        }
+      }
+    })
+    .state('tabs.archived-bet.overview', {
+      url: '/overview',
+      templateUrl: 'partials/betPartials/archived-bet-overview.html'
+    })
+    .state('tabs.archived-bet.members', {
+      url: '/members',
+      templateUrl: 'partials/betPartials/archived-bet-members.html'
+    })
+    .state('tabs.archived-bet.activity', {
+      url: '/activity',
+      templateUrl: 'partials/betPartials/archived-bet-activity.html'
+    })
+    .state('tabs.archived-bet.proof', {
+      url: '/proof',
+      templateUrl: 'partials/betPartials/archived-bet-proof.html'
+    })
+    .state('tabs.archived-bet.followers', {
+      url: '/proof',
+      templateUrl: 'partials/betPartials/archived-bet-followers.html'
+    })
+    .state('tabs.archived-bet.chat', {
+      url: '/proof',
+      templateUrl: 'partials/betPartials/archived-bet-chat.html'
+    })
     .state('tabs.bet', {
       url: '/bets/:betID',
       resolve: {
@@ -356,7 +430,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
     })
     .state('tabs.bet.proof', {
       url: '/proof',
-      templateUrl: 'partials/profilePartials/losses.html'
+      templateUrl: 'partials/betPartials/bet-proof.html'
     })
     .state('tabs.bet.followers', {
       url: '/followers',

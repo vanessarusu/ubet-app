@@ -1,0 +1,17 @@
+
+<div id="profileBetsContainer">
+<h3 class="swagHeading">Archived Losses</h3>
+<div>
+	<ul id="betList">
+		<li class="light padding" data-ng-repeat="bet in friendProfileInstance.archivedLosses">
+			<a data-ui-sref="tabs.bet({betID: bet.bet_id})" class="row">
+<!-- 				<figure class="col col-20">
+					<img data-ng-src="../img/{{friend.profile_image}}">
+				</figure> -->
+				<div class="col col-100 light memberListItem">
+					{{bet.bet_name}}
+				</div>
+			</a>
+	</ul>
+	</div>
+</div>

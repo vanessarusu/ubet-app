@@ -1,60 +1,65 @@
-   
-	<label class="item item-input row">
-        <span class="icon ion-person editProfileIcons col-10"></span>
-        <input type="text" placeholder="Bet Name" data-ng-model="cbInstance.betName">
-    </label>
+<div id="createBetTermsContainer">
+    <div class="card">
+        <div class="item item-text-wrap">
+            <h3 class="betCreationSubtitle">Confirm and <br>Submit Bet</h3>
+            <div class="spacer"></div>
+      
+
+            <label class="item item-input row">
+                <span class="icon ion-flag editProfileIcons col-10"></span>
+                <input type="text" placeholder="Bet Name" data-ng-model="cbInstance.betName">
+            </label>
+            <div class="spacer"></div>
 	
-   	<h3> Moderators </h3>
-   	<ul>
-    	<div class="row">
-    		<li class="col" data-ng-repeat="comp in cbInstance.moderators">
-    			<!-- todo, need to click these to remove them -->
-    			<!-- todo, need to add image -->
-				<div class="padding emptyMember">{{comp.fname}}</div>
-    		</li>
-    	</div>
-	</ul>
+           	<p class="setBetWager dark textCenter"> Moderators: </p>
+           	<ul>
+            	<div class="row">
+            		<li class="col" data-ng-repeat="comp in cbInstance.moderators">
+        				<div class="padding emptyMember">{{comp.fname}}</div>
+            		</li>
+            	</div>
+        	</ul>
+            <div class="spacer"></div>
 
-	<h3> Competitors </h3>
-   	<ul>
-    	<div class="row">
-    		<li class="col" data-ng-repeat="comp in cbInstance.competitors">
-    			<!-- todo, need to click these to remove them -->
-    			<!-- todo, need to add image -->
-				<div class="padding emptyMember">{{comp.fname}}</div>
-    		</li>
-    	</div>
-	</ul>
+	       <p class="setBetWager dark textCenter"> Competitors: </p>
+           	<ul>
+            	<div class="row">
+            		<li class="col" data-ng-repeat="comp in cbInstance.competitors">
+        				<div class="padding emptyMember">{{comp.fname}}</div>
+            		</li>
+            	</div>
+        	</ul>
 
+            <div class="row">
 
-  	<div class="row">
+            <!-- START DATE -->
 
-  	<!-- START DATE -->
+                <div class="col">
+                    <p class="datepickerButton textCenter">Start Date: {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</p>
+              	</div>
 
-  		<div class="col">
-        	<p>Start Date : {{cbInstance.currentStartDate | date:'MMMM.dd.yy' }}</p>
-  		</div>
+            <!-- END DATE -->
 
-  	<!-- END DATE -->
+              	<div class="col">
+            		<p class="datepickerButton textCenter">End Date: {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</p>
+              	</div>
+            </div>
 
-  		<div class="col">
-				<p>End Date : {{cbInstance.currentEndDate | date:'MMMM.dd.yy' }}</p>
-  		</div>
-  	</div>
+	       <!-- WAGER AMOUNT -->
+            <p class="setBetWager dark textCenter">Wager Amount: <span class="balanced">{{cbInstance.wagerAmount}}</span></p>
 
+	       <!-- BET TERMS -->
 
-	<!-- WAGER AMOUNT -->
-		<p>Wager Amount: {{cbInstance.wagerAmount}}</p>
+    		<label class="item item-input item-floating-label">
+        		<span class="input-label">Bet Terms</span>
+        		<p> {{cbInstance.betTerms}} </p>
+      		</label>
+        </div>
+        <div class="spacer"></div>
 
-	<!-- BET TERMS -->
-
-		<label class="item item-input item-floating-label">
-    		<span class="input-label">Bet Terms</span>
-    		<p> {{cbInstance.betTerms}} </p>
-  		</label>
-	</div>
-
-
-	<button data-ng-click="cbInstance.submitBet()">
+        <button class="button button-full button-calm" data-ng-click="cbInstance.submitBet()">
 		Submit
-	</button>
+        </button>
+        <div class="spacer"></div>
+    </div>
+</div>
