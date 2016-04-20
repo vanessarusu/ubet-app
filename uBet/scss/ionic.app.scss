@@ -104,19 +104,6 @@ figure img {
 	// border: 4px solid #c2e1f5;
 }
 
-// .activeButton:after, .activeButton:before {
-// 	top: 100%;
-// 	left: 50%;
-// 	content: '';
-// 	// display: block;
-// 	position: absolute;
-// 	pointer-events: none;
-// 	height: 0;
-// 	width: 0;
-// 	border: solid transparent;
-// 	// background-color: red;
-// 	// height: 20px;
-// }
 
 .activeButton:after {
 	top: 100%;
@@ -404,12 +391,9 @@ h5.betSubtitle {
 	border-bottom: 1px solid $balanced;
 	position: relative;
 	padding: 5px 10px;
-	// font-weight: bold;
-	// letter-spacing: 1px;
+
 	color: $light;
-	// font-family: $font-family-swagmasta;
-	// background-color: $calm;
-	// opacity: 0.1;
+
 }
 h5.betSubtitle:after {
 	content: '';
@@ -419,7 +403,6 @@ h5.betSubtitle:after {
 	height: 100%;
 	width: 100%;
 	background-color: $balanced;
-	// border-radius: 10px;
 	opacity: 0.03;
 }
 
@@ -434,7 +417,6 @@ h3.betCreationSubtitle {
 }
 .funCopy {
 	font-family: $font-family-swagmasta;
-	// color: $calm;
 	font-size: 16px;
 }
 .spacer {
@@ -442,7 +424,6 @@ h3.betCreationSubtitle {
 	width: 100%;
 }
 .setBetWager {
-	// font-weight: bold;
 	font-family: $font-family-swagmasta;
 	font-size: 18px !important;
 }

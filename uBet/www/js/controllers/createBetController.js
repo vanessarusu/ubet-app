@@ -64,13 +64,10 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 
 		var id = f.user_id;
 
-		// remove friend from competitor list
 		var indx = cb.competitors.indexOf(f);
 		console.log("index of friend " + indx);
 		cb.competitors.splice(indx, 1);
 
-		// todo keep order better (this just pushes it to the end, doesn't reorder, probably need to add orderBy in ng-repeat)
-		//add friend back to friends list
 		cb.friends.push(f);
 
 	}
@@ -78,11 +75,9 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 	cb.addCompetitor = function(f) {
 
 		var id = f.user_id;
-		// add friend as competitor
 		cb.competitors.push(f);
 
 		console.log('the id is '+ id);
-		// remove clicked on friend from friends list
 		var indx = cb.friends.indexOf(f);
 		cb.friends.splice(indx, 1);
 	}
@@ -93,12 +88,9 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 
 		var id = m.user_id;
 
-		// remove friend from competitor list
 		var indx = cb.moderators.indexOf(m);
 		cb.moderators.splice(indx, 1);
 
-		// todo keep order better (this just pushes it to the end, doesn't reorder, probably need to add orderBy in ng-repeat)
-		//add friend back to friends list
 		cb.friends.push(m);
 
 	}
@@ -106,7 +98,6 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 	cb.addModerator = function(m) {
 
 		var id = m.user_id;
-		// add friend as competitor
 		cb.moderators.push(m);
 
 		console.log('the id is '+ id);
@@ -139,9 +130,6 @@ app.controller('createBetController', ['$scope', '$rootScope', '$state', 'create
 		});
 		$state.go('tabs.bets', {}, {reload: true});
 
-		// Build the object to send to the database
-		// Make the database call
-		// Go check its in the db
 	}
 
 	createBetFactory.getUserInfo(cb.creator)

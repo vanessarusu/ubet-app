@@ -34,12 +34,28 @@ app.controller('betController', ['$scope', '$rootScope', '$state', 'betFactory',
 		bet.vote = false;
 		bet.memberHasVoted = false;
 		bet.creator = [];
+		// bet.viewBet.winnerID;
+		bet.betWinner = false;
 
 
 
 // --- if we are looking at a specific bet ------ //
 
 		if(bet.viewBet != null) {
+
+			if(bet.viewBet.winner_id != null) {
+				console.log('im in bere');
+				console.log(bet.viewBet.winner_id);
+				profileFactory.getUser(bet.viewBet.winner_id)
+				.then(function(data){
+					console.log(data.data);
+					bet.betWinner = data.data;
+					return bet.betWinner;
+				});
+				// bet.betWinner = bet.viewBet.winnerID;
+			}
+			console.log(bet.betWinner);
+			console.log(viewBet);
 			bet.viewBet.pretty_start_date = bet.viewBet.start_date.toString();
 			console.log(bet.viewBet.pretty_start_date);
 			betFactory.checkBetImage(bet.viewBet);
@@ -73,7 +89,7 @@ app.controller('betController', ['$scope', '$rootScope', '$state', 'betFactory',
 							else if(data[i].accepted_bet == 2 || data[i].accepted_bet == '2') {
 								data[i].pendingClass = 'ion-close-circled danger';
 							}
-							else if(data[i].accepted_bet == 3 || data[i]. accepted_bet == '3') {
+							else if(data[i].accepted_bet == 3 || data[i].accepted_bet == '3') {
 								data[i].pendingClass = 'ion-help-circled calm';
 							}
 						}

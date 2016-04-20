@@ -40,11 +40,9 @@ class BetModel extends CI_Model {
 		$bet_result = $q->row_array();
 		$bet_id = $bet_result['bet_id'];
 
-		// need to create bet participants
 		$partipants = $betInfo['bet_particpants'];
 		$moderators = $betInfo['bet_moderators'];
 
-		// hard coding in the values here, we probably want to go to the db to get the actual id each time
 
 		foreach($partipants as $participant) {
 

@@ -6,7 +6,6 @@
             <li class="light" data-ng-repeat="member in betPageInstance.betMembers" data-ng-if="member.role_id==2 || member.role_id==1">
                 <a data-ui-sref="tabs.user({userID: member.user_id})" class="row">
                     <figure class="col col-20">
-                        <!-- <img data-ng-src="../img/{{member.profile_image}}"> -->
                          <img data-ng-src="{{betPageInstance.rootImagePath}}/{{member.profile_image}}">
 
                     </figure>
@@ -21,7 +20,6 @@
             <li class="dark" data-ng-repeat="member in betPageInstance.betMembers" data-ng-if="member.role_id==3">
                 <a data-ui-sref="tabs.user({userID: member.user_id})" class="row">
                     <figure class="col col-20">
-                        <!-- <img data-ng-src="../img/{{member.profile_image}}"> -->
                          <img data-ng-src="{{betPageInstance.rootImagePath}}/{{member.profile_image}}">
 
                     </figure>

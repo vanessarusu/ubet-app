@@ -14,8 +14,7 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 
 	console.log('instance');
 	fi.viewMember = viewMember;
-	// console.log(fi.viewMember);
-	// console.log('^^^ is view Mmeber');
+
 
 	fi.sortType = 'lname';
 	fi.sortReverse = false;
@@ -39,7 +38,6 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 		fi.moderatorBets = [];
 		betFactory.getAllBets(fi.viewMember.user_id)
 		.then(function(data) {
-			// console.log(data);
 			for (var i = 0; i < data.length; i++) {
 				if(data[i].bet_status == 1 || data[i].bet_status == '1') {
 					fi.activeBets.push(data[i]);
@@ -59,33 +57,24 @@ app.controller('friendsController', ['$rootScope','$scope', '$state', 'friendsFa
 						}
 					}
 				} else {
-					// console.log("didnt render for bet status " + data[i].bet_status);
 				}
 			}
-			// console.log('friends bet stuff: ');
-			// console.log(fi.archivedWins);
-			// console.log(fi.archivedLosses);
-			// console.log(fi.moderatorBets);
 		});
 		eventFactory.getEventsForUserId(fi.viewMember.user_id)
 		.then(function(data) {
 			fi.userEvents = data;
 		})
 	}
-	// console.log(fi.viewingUserID+' is the viewing user id');
 
 
-	// get all friends that have been accepted
 	friendsFactory.getFriends(fi.viewingUserID)
 	.then(function(data) {
-		// console.log(data);
 
 		for(var i = 0; i < data.length; i++) {
 			fi.friendsIDList.push(data[i].user_id);
 			profileFactory.checkProfileImage(data[i]);
 		}
 		fi.friends = data;
-		// console.log(data);
 		fi.doneCheck = true;
 
 		if(fi.currentUserID == fi.viewingUserID) {
@@ -189,7 +178,6 @@ app.factory('friendsFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 		},
 
 		getFriends: function(userID) {
-			// var userID = JSON.parse(localStorage.getItem('user')).user_id;
 			console.log(userID + ' is the user id in get friends');
 			var request = $http.get($rootScope.basePath+'/User/friends/'+userID)
 			.then(function(response) {
@@ -207,7 +195,6 @@ app.factory('friendsFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 		removeFriend: function(userID, friendID) {
 			var request = $http.delete($rootScope.basePath+'/user/'+userID+'/friends/friend/'+friendID)
 			.then(function(response) {
-				// console.log(response);
 				return response.data;
 			});
 			return request;
@@ -215,7 +202,6 @@ app.factory('friendsFactory', ['$rootScope','$http', '$httpParamSerializer', fun
 		addFriend: function(userID, friendID) {
 			var request = $http.post($rootScope.basePath+'/user/'+userID+'/friends/friend/'+friendID)
 			.then(function(response) {
-				// console.log(response);
 				return response.data;
 			});
 			return request;

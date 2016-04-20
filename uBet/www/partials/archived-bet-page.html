@@ -15,6 +15,9 @@
                 {{archivedBetInstance.betStatus}}
                 </p>
             </div>
+            <div data-ng-if="archivedBetInstance.betWinner" class="padding-top">
+                <h2 class="swagHeading balanced textCenter">{{archivedBetInstance.betWinner.fname}} {{archivedBetInstance.betWinner.lname}} won!</h2>
+            </div>
         <div class="row">
             <div class="col col-33 col-offset-33" class="padding-right">
                 <figure id="betImage">
@@ -44,23 +47,14 @@
 
             <!-- ACTIVITY -->
 
-            <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.archived-bet.activity" class="col profileButton icon ion-arrow-graph-up-right">
-            </a>
+           <!--  <a data-ng-click="activeButton = 'c'" data-ng-class="{'activeButton' : activeButton =='c'}" data-ui-sref="tabs.archived-bet.activity" class="col profileButton icon ion-arrow-graph-up-right">
+            </a> -->
 
             <!-- PROOF -->
 
             <a data-ng-click="activeButton = 'd'" data-ng-class="{'activeButton' : activeButton =='d'}" data-ui-sref="tabs.archived-bet.proof" class="col profileButton icon ion-upload">
             </a>
 
-            <!-- FOLLOWERS -->
-
-            <!-- <a data-ng-click="activeButton = 'e'" data-ng-class="{'activeButton' : activeButton =='e'}" data-ui-sref="tabs.archived-bet.followers" class="col profileButton icon ion-ios-heart">
-            </a> -->
-
-            <!-- CHAT -->
-
-            <!-- <a data-ng-click="activeButton = 'f'" data-ng-class="{'activeButton' : activeButton =='f'}" data-ui-sref="tabs.archived-bet.chat" class="col profileButton icon ion-chatbubbles">
-            </a> -->
             <div class="col"></div>
 
         </div>
